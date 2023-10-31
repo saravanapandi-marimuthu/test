@@ -1,0 +1,421 @@
+{
+  "folders": [
+    {
+      "name": "Web",
+      "path": "./apps/web"
+    },
+    {
+      "name": "Horizen.WebAPI",
+      "path": "./apis/Horizen.WebApi"
+    },
+    {
+      "name": "Horizen.DataSprout",
+      "description": "DataSprout is a .NET console application that uses Entity Framework Core to seed data into the Horizen database.",
+      "path": "./apps/Horizen.DataSprout"
+    },
+    {
+      "name": "Horizen.Data",
+      "path": "./shared/Horizen.Data"
+    },
+    {
+      "name": "Horizen.Data.Tests",
+      "path": "./shared/Horizen.Data.Tests"
+    },
+    {
+      "name": "Horizen.Storage",
+      "path": "./shared/Horizen.Storage"
+    },
+    {
+      "name": "Horizen.ProductScraper",
+      "path": "./apps/Horizen.ProductScraper"
+    },
+    {
+      "name": "Horizen.Core",
+      "path": "./shared/Horizen.Core"
+    },
+    {
+      "name": "Horizen.Workflow",
+      "path": "./apis/Horizen.WorkflowFunction"
+    },
+    {
+      "name": "Root",
+      "path": "."
+    }
+  ],
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Frontend",
+        "type": "msedge",
+        "request": "launch",
+        "url": "http://localhost:8910",
+        "webRoot": "${workspaceFolder}/apps/web/src",
+        "sourceMaps": true,
+        "preLaunchTask": "rundev",
+        "postDebugTask": "stopdev"
+      },
+      {
+        "name": ".NET Core Web API Launch",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build-dotnet-web-api",
+        "program": "${workspaceFolder:Horizen.WebAPI}/bin/Debug/net7.0/Horizen.WebApi.dll",
+        "args": [],
+        "cwd": "${workspaceFolder:Horizen.WebAPI}",
+        "stopAtEntry": false,
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "sourceFileMap": {
+          "/Views": "${workspaceFolder:Horizen.WebAPI}/Views"
+        },
+        "launchBrowser": {
+          "enabled": false
+        }
+      },
+      {
+        "name": ".NET Product Scraper Launch",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build-scraper",
+        "program": "${workspaceFolder:Horizen.ProductScraper}/bin/Debug/net7.0/Horizen.ProductScraper.dll",
+        "args": [],
+        "cwd": "${workspaceFolder:Horizen.ProductScraper}",
+        "stopAtEntry": false,
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "HORIZEN_ENVIRONMENT": "Development"
+        }
+      },
+      {
+        "name": ".NET Data DB Sprout Launch",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build-db-sprout",
+        "program": "${workspaceFolder:Horizen.DataSprout}/bin/Debug/net7.0/Horizen.DataSprout.dll",
+        "args": [],
+        "cwd": "${workspaceFolder:Horizen.DataSprout}",
+        "stopAtEntry": false,
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "HORIZEN_ENVIRONMENT": "Development"
+        }
+      },
+      {
+        "name": ".NET Core Launch (xUnit)",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build-data-tests",
+        "program": "${workspaceFolder:Horizen.Data.Tests}/bin/Debug/net7.0/Horizen.Data.Tests.dll",
+        "args": [],
+        "cwd": "${workspaceFolder:Horizen.Data.Tests}",
+        "stopAtEntry": false,
+        "env": {
+          "DOTNET_ROOT": "${env:DOTNET_ROOT}"
+        }
+      },
+      {
+        "name": ".NET Core Attach",
+        "type": "coreclr",
+        "request": "attach"
+      },
+      {
+        "name": "Horizen Workflow Function",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build-horizen-workflow-function",
+        "args": [
+          "func",
+          "start",
+          "${workspaceFolder:Horizen.Workflow}",
+          "--host",
+          "localhost",
+          "--port",
+          "7071"
+        ],
+        "program": "${workspaceFolder:Horizen.Workflow}/bin/Debug/net7.0/Horizen.Workflow.dll",
+        "cwd": "${workspaceFolder:Horizen.Workflow}",
+        "env": {
+          "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+          "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+          "HORIZEN_ENVIRONMENT": "Development",
+          "FUNCTIONS_CORETOOLS_ENVIRONMENT": "true"
+        },
+        "launchBrowser": {
+          "enabled": false
+        }
+      }
+    ],
+
+    "compounds": []
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "rundev",
+        "command": "npm",
+        "type": "shell",
+        "args": ["run", "dev"],
+        "options": { "cwd": "apps/web" },
+        "problemMatcher": [
+          {
+            "pattern": [
+              {
+                "regexp": ".",
+                "file": 1,
+                "location": 2,
+                "message": 3
+              }
+            ],
+            "background": {
+              "activeOnStart": true,
+              "beginsPattern": ".",
+              "endsPattern": "."
+            }
+          }
+        ],
+        "presentation": {
+          "reveal": "never"
+        },
+        "isBackground": true,
+        "group": "build"
+      },
+      {
+        "label": "stopdev",
+        "command": "npm",
+        "type": "shell",
+        "args": ["run", "stop"],
+        "options": { "cwd": "apps/web" },
+        "presentation": {
+          "reveal": "never"
+        },
+        "group": "build"
+      },
+      {
+        "label": "build-dotnet-web-api",
+        "command": "dotnet",
+        "type": "process",
+        "dependsOn": ["build"],
+        "args": [
+          "run",
+          "--",
+          "schema",
+          "export",
+          "--output",
+          "generated-schema.graphql"
+        ],
+        "options": { "cwd": "${workspaceFolder:Horizen.WebAPI}" },
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "build",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "build",
+          "${workspaceFolder:Horizen.WebAPI}/Horizen.WebApi.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "build-scraper",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "build",
+          "${workspaceFolder:Horizen.ProductScraper}/Horizen.ProductScraper.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "build-db-sprout",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "build",
+          "${workspaceFolder:Horizen.DataSprout}/Horizen.DataSprout.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "build-data-tests",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "build",
+          "${workspaceFolder:Horizen.Data.Tests}/Horizen.Data.Tests.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary;ForceNoAlign"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "clean-horizen-workflow-function",
+        "command": "dotnet",
+        "args": [
+          "clean",
+          "${workspaceFolder:Horizen.Workflow}/Horizen.Workflow.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary"
+        ],
+        "type": "process",
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "build-horizen-workflow-function",
+        "command": "dotnet",
+        "args": [
+          "build",
+          "${workspaceFolder:Horizen.Workflow}/Horizen.Workflow.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary"
+        ],
+        "type": "process",
+        "dependsOn": "clean-horizen-workflow-function",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "start-horizen-workflow-function",
+        "type": "process",
+        "dependsOn": "build-horizen-workflow-function",
+        "options": {
+          "cwd": "${workspaceFolder:Horizen.Workflow}/bin/Debug/net7.0"
+        },
+        "command": "host start",
+        "isBackground": true,
+        "problemMatcher": "$func-dotnet-watch"
+      }
+    ]
+  },
+  "settings": {
+    "cmake.configureOnOpen": false,
+    "cmake.ignoreCMakeListsMissing": true,
+    "typescript.tsdk": "web/node_modules/typescript/lib",
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[csharp]": {
+      "editor.defaultFormatter": "csharpier.csharpier-vscode",
+      "editor.formatOnSave": true
+    },
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "[graphql]": {
+      "editor.formatOnSave": true
+    },
+    "[json]": {
+      "editor.formatOnSave": true
+    },
+    "[yaml]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.tabSize": 2,
+      "diffEditor.ignoreTrimWhitespace": false,
+      "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+      }
+    },
+    "debug.internalConsoleOptions": "neverOpen",
+    "cSpell.words": [
+      "adminconfig",
+      "ASPNETCORE",
+      "camelcase",
+      "CDMS",
+      "codegen",
+      "consoleloggerparameters",
+      "copyfiles",
+      "coreclr",
+      "datatables",
+      "echarts",
+      "esbenp",
+      "heroicons",
+      "horizen",
+      "horizenapp",
+      "jwks",
+      "markercomplete",
+      "Msal",
+      "msedge",
+      "Npgsql",
+      "Parens",
+      "PLSS",
+      "polygoncomplete",
+      "polylinecomplete",
+      "polylines",
+      "prestart",
+      "rightclick",
+      "rundev",
+      "SENDGRID",
+      "staticwebapp",
+      "stopdev",
+      "Swipeable",
+      "tailwindcss",
+      "userhome"
+    ],
+    "editor.folding": true,
+    "[prisma]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "Prisma.prisma"
+    },
+    "jest.disabledWorkspaceFolders": [
+      "Root",
+      "Web",
+      "Horizen.WebAPI",
+      "Horizen.ProductScraper",
+      "Horizen-Data",
+      "Horizen.Data.Tests",
+      "Horizen.DataSprout",
+      "Horizen.Data",
+      "Horizen.Storage",
+      "Horizen.Core",
+      "Horizen.Workflow"
+    ],
+    "dotnet-test-explorer.testProjectPath": "shared/Horizen.Data.Tests",
+    "favorites.resources": [
+      {
+        "filePath": "/Users/kalyanganesan/Documents/Horizen/GitHub.nosync/horizenapp/apps/web/src/graphql",
+        "group": "Default"
+      },
+      {
+        "filePath": "/Users/kalyanganesan/Documents/Horizen/GitHub.nosync/horizenapp/apis/Horizen.WebAPI/src/GraphQL",
+        "group": "Default"
+      },
+      {
+        "filePath": "/Users/kalyanganesan/Documents/Horizen/GitHub.nosync/horizenapp/shared/Horizen.Data/src/Services",
+        "group": "Default"
+      },
+      {
+        "filePath": "/Users/kalyanganesan/Documents/Horizen/GitHub.nosync/horizenapp/shared/Horizen.Data/src/Models",
+        "group": "Default"
+      }
+    ],
+    "editor.formatOnSave": true
+  }
+}

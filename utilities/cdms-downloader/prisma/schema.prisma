@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Manufacturer {
+  id          Int      @id @default(autoincrement())
+  externalId  Int      @unique
+  label       String
+  homePage    String
+  gaPageParam String
+  products    Product[]
+}
+
+model Product {
+  id                  Int                     @id @default(autoincrement())
+  externalId          Int                     @unique
+  name                String
+  labelDAT            String
+  logoId              Int
+  manId               Int
+  EPA                 String
+  manufacturerName    String
+  commonName          String
+  hasIcon             Boolean
+  iconUrl             String
+  iconUI              String
+  gaPageParam         String
+  isUs                Boolean
+  isCanada            Boolean
+  isCoPack            Boolean
+  manufacturerId      Int
+  manufacturer        Manufacturer           @relation(fields: [manufacturerId], references: [id])
+  productAvailability ProductAvailability[]
+  productDocument     ProductDocument[]
+}
+
+model ProductAvailability {
+  id          Int    @id @default(autoincrement())
+  productId   Int
+  country     String
+  region      String
+  value       String
+  product     Product @relation(fields: [productId], references: [id])
+}
+
+model ProductDocument {
+  id          Int    @id @default(autoincrement())
+  productId   Int
+  siteUrl     String
+  labelFolder String
+  fileName    String
+  description String
+  docType     String
+  docId       Int
+  product     Product @relation(fields: [productId], references: [id])
+}

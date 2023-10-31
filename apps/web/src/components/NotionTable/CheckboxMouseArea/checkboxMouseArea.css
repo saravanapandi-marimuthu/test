@@ -1,0 +1,47 @@
+.selected-chb-wrapper {
+  padding: 11px;
+  cursor: pointer;
+}
+
+.selected-chb {
+  position: relative;
+}
+
+.selected-chb-wrapper input {
+  display: none;
+}
+
+.selected-chb-label {
+  position: relative;
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.6);
+}
+
+.mouse-select__selectable.selected .selected-chb-label::after,
+.selected-chb-label.active::after {
+  position: absolute;
+  display: block;
+  content: '';
+  height: 10px;
+  width: 6px;
+  border-bottom: 2px solid rgb(240, 238, 238);
+  border-right: 2px solid rgba(240, 238, 238);
+  top: 0;
+  bottom: 3px;
+  left: 3px;
+  transform: rotate(45deg);
+  margin: auto;
+}
+
+.mouse-select__selectable.selected .selected-chb-label {
+  background: rgb(103, 58, 183);
+}
+
+.selected-chb-label.active {
+  background: rgb(103, 58, 183);
+}

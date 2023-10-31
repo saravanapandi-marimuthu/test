@@ -1,0 +1,13 @@
+mutation CreatePurchaseOrder($input: CreatePurchaseOrderInput!) {
+  createPurchaseOrder(input: $input) {
+    purchaseOrder {
+      id
+      orderNumber
+      vendorCompanyId
+      totalPrice
+      dateOrdered
+      orderStatus
+      trackingNumber
+    }
+  }
+}

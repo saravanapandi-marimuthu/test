@@ -1,0 +1,88 @@
+query RetailerProducts($input: GetRetailerProductsInput!) {
+  retailerProducts(input: $input) {
+    items {
+      id
+      productName
+      sku
+      productCategoryInfo {
+        value
+        name
+        colorIndex
+      }
+      productTypeInfo {
+        value
+        name
+        colorIndex
+      }
+      description
+      notes
+      components {
+        id
+        manufacturerProductId
+        manufacturerProduct {
+          productName
+          commonName
+          epa
+          isUs
+          manufacturerName
+        }
+      }
+    }
+    totalCount
+  }
+}
+
+query RetailerProduct($input: GetRetailerProductInput!) {
+  retailerProduct(input: $input) {
+    id
+    productName
+    sku
+    productCategoryInfo {
+      value
+      name
+      colorIndex
+    }
+    productTypeInfo {
+      value
+      name
+      colorIndex
+    }
+    description
+    notes
+    components {
+      id
+      manufacturerProductId
+      manufacturerProduct {
+        productName
+        commonName
+        epa
+        isUs
+        manufacturerName
+      }
+    }
+  }
+}
+
+query RetailerProductComponents($input: GetRetailerProductComponentsInput!) {
+  retailerProductComponents(input: $input) {
+    items {
+      manufacturerProduct {
+        commonName
+        productName
+        productCategoryInfo {
+          value
+          name
+          colorIndex
+        }
+        productTypeInfo {
+          value
+          name
+          colorIndex
+        }
+        manufacturerCompany {
+          name
+        }
+      }
+    }
+  }
+}

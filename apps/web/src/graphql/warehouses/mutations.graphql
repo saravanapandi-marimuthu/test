@@ -1,0 +1,9 @@
+mutation CreateWarehouse($input: CreateWarehouseInput!) {
+  createWarehouse(input: $input) {
+    warehouse {
+      id
+      name
+      notes
+    }
+  }
+}

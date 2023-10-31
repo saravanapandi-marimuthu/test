@@ -1,0 +1,37 @@
+query StorageLocations($input: GetStorageLocationsInput!) {
+  storageLocations(input: $input) {
+    items {
+      id
+      warehouseId
+      name
+      description
+      notes
+      barcode
+      storageLocationTypeId
+      parentStorageLocationId
+      storageLocationType {
+        id
+        name
+        colorIndex
+        tagCategory {
+          id
+          name
+          colorIndex
+        }
+      }
+    }
+    totalCount
+  }
+}
+
+query StorageLocationById($input: GetStorageLocationByIdInput!) {
+  storageLocationById(input: $input) {
+    id
+    warehouseId
+    name
+    description
+    barcode
+    storageLocationTypeId
+    parentStorageLocationId
+  }
+}

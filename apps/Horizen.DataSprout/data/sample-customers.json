@@ -1,0 +1,236 @@
+[
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "Customer",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Emily Smith",
+      "services": ["Account"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "789 Maple Street",
+            "addressLine2": null,
+            "city": "Greenfield",
+            "country": "USA",
+            "postalCode": "45123",
+            "state": "Ohio"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "513-555-1212",
+            "extension": "123"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "emily@harvestfields.com",
+        "firstName": "Emily",
+        "lastName": "Smith",
+        "middleName": "R"
+      },
+      "extendedProperties": {
+        "test": "New customer onboarded"
+      },
+      "tagLinks": [
+        {
+          "tagCategoryName": "Customer Level",
+          "tagName": "Gold"
+        }
+      ]
+    },
+    "tagLinks": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Gold"
+      }
+    ]
+  },
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "Customer",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Robert Johnson",
+      "services": ["Account"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "456 Elm Road",
+            "addressLine2": null,
+            "city": "Hicksville",
+            "country": "USA",
+            "postalCode": "43526",
+            "state": "Ohio"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005559876",
+            "extension": "123"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "robert@countrymeadows.com",
+        "firstName": "Robert",
+        "lastName": "Johnson",
+        "middleName": "T"
+      },
+      "extendedProperties": {
+        "test": "New customer onboarded"
+      }
+    },
+    "tagLinks": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  },
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "Customer",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Jane Anderson",
+      "services": ["Account"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "321 Willow Ave",
+            "addressLine2": null,
+            "city": "Bloomfield",
+            "country": "USA",
+            "postalCode": "07003",
+            "state": "New Jersey"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005553210"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "jane@hillsidefarms.com",
+        "firstName": "Jane",
+        "lastName": "Anderson",
+        "middleName": "L"
+      },
+      "extendedProperties": {
+        "test": "New customer onboarded"
+      }
+    },
+    "tagLinks": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Bronze"
+      }
+    ]
+  },
+  {
+    "relatedCompanyName": "William Clark",
+    "relationshipType": "Customer",
+    "notes": "This is a test note",
+    "company": {
+      "name": "William Clark",
+      "services": ["Account"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "220 Birch Lane",
+            "addressLine2": null,
+            "city": "Sunnyvale",
+            "country": "USA",
+            "postalCode": "94086",
+            "state": "California"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005557489",
+            "extension": "123"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "william@organicgreens.com",
+        "firstName": "William",
+        "lastName": "Clark",
+        "middleName": "S"
+      },
+      "extendedProperties": {
+        "test": "New customer onboarded"
+      }
+    },
+    "tagLinks": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  },
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "Customer",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Mary Johnson",
+      "services": ["Account"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "920 Pine Road",
+            "addressLine2": null,
+            "city": "Greenville",
+            "country": "USA",
+            "postalCode": "29601",
+            "state": "South Carolina"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005558765"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "mary@freshfarm.com",
+        "firstName": "Mary",
+        "lastName": "Johnson",
+        "middleName": "E"
+      },
+      "extendedProperties": {
+        "test": "New customer onboarded"
+      }
+    },
+    "tagLinks": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Gold"
+      }
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+
+> horizenapp-vite@0.0.0 graphql:codegen
+> graphql-codegen --config graphql_codegen.ts
+
+[STARTED] Parse Configuration
+[SUCCESS] Parse Configuration
+[STARTED] Generate outputs
+[STARTED] Generate to src/graphql/generated/
+[STARTED] Load GraphQL schemas
+[SUCCESS] Load GraphQL schemas
+[STARTED] Load GraphQL documents
+[SUCCESS] Load GraphQL documents
+[STARTED] Generate
+[SUCCESS] Generate outputs

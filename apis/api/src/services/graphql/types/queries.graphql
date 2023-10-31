@@ -1,0 +1,49 @@
+type Query {
+  getCompanyOrCreate: Company
+
+  getCompanies(
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+  ): GetCompaniesResult!
+
+  getAvailableRoles: [Role!]!
+
+  getManufacturers(
+    companyId: String!
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+  ): GetManufacturersResult!
+
+  getManufacturerProducts(
+    companyId: String!
+    manufacturerId: String
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+  ): GetManufacturerProductsResult!
+
+  getPaymentTerms(
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+    filters: [FilterInput]
+  ): GetPaymentTermsResult!
+
+  getAvailableUnitsOfMeasurement: [UnitOfMeasurement!]!
+
+  getRetailerProducts(
+    companyId: String!
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+    filters: [FilterInput]
+    tagFilters: [TagFilterInput]
+  ): GetRetailerProductsResult!
+}

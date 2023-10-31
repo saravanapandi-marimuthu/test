@@ -1,0 +1,1962 @@
+// Prisma Schema
+// Docs: https://pris.ly/d/prisma-schema
+
+//
+// IMPORTANT!!! If you are making changes to this file, you'll need to update graphql schema files also
+//
+
+generator clientNodeModules {
+  provider = "prisma-client-js"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// TBD: Find a different solution for this as this is not supported by Prisma v5
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   theme    = "forest"
+// }
+
+// #region Enumerations
+
+/// Address type
+enum AddressType {
+  HOME
+  BUSINESS
+  BILLING
+  SHIPPING
+  PHYSICAL
+  MAILING
+  SERVICE
+  RECIPIENT
+  LEGAL
+  OTHER
+}
+
+/// Phone Number Type
+enum PhoneNumberType {
+  MOBILE
+  WORK
+  HOME
+  OTHER
+}
+
+/// Unit type
+enum UnitType {
+  SIMPLE
+  COMPOUND
+}
+
+/// Order status
+enum OrderStatusType {
+  PENDING
+  IN_PROGRESS
+  FULFILLED
+  CANCELED
+}
+
+/// Order Item status
+enum OrderItemStatusType {
+  PENDING
+  BOOKED
+  PICK_TICKET_READY
+  PICK_TICKET_IN_PROGRESS
+  DELIVERY_TICKET_READY
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+/// Inventory transaction type
+enum TransactionType {
+  STOCK_ADDED
+  STOCK_REMOVED
+}
+
+enum StorageUnitType {
+  CONTAINER
+  BIN
+  TANK
+}
+
+enum AssetStatusType {
+  ACTIVE
+  INACTIVE
+  UNDER_MAINTENANCE
+}
+
+enum CompanyRelationshipDirection {
+  FIRST_TO_SECOND_COMPANY
+  SECOND_TO_FIRST_COMPANY
+}
+
+enum CompanyRelationshipStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum UserAuditLogType {
+  CREATE
+  UPDATE
+  DELETE
+}
+
+enum BoundaryType {
+  MANUAL
+  MACHINE
+}
+
+enum BillingSplitValueType {
+  PERCENTAGE
+  FIXED_AMOUNT
+  RATIO
+}
+
+enum BillingAccountStatus {
+  ACTIVE // Active account
+  INACTIVE // Inactive account
+}
+
+enum UnitOfMeasurementType {
+  VOLUME
+  WEIGHT
+  AREA
+  LENGTH
+  COUNT
+  RATE
+}
+
+enum ChartOfAccountClassification {
+  ASSET
+  EQUITY
+  EXPENSE
+  LIABILITY
+  REVENUE
+}
+
+enum ChartOfAccountType {
+  // ASSET Classification
+  BANK
+  OTHER_CURRENT_ASSET
+  FIXED_ASSET
+  OTHER_ASSET
+  ACCOUNTS_RECEIVABLE
+
+  // EQUITY Classification
+  EQUITY
+
+  // EXPENSE Classification
+  EXPENSE
+  COST_OF_GOODS_SOLD
+  OTHER_EXPENSE
+
+  // LIABILITY Classification
+  ACCOUNTS_PAYABLE
+  CREDIT_CARD
+  OTHER_CURRENT_LIABILITY
+  LONG_TERM_LIABILITY
+
+  // REVENUE Classification
+  REVENUE
+  OTHER_INCOME
+}
+
+enum RebateValueType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+enum DiscountValueType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+enum CurrencyRoundingMethod {
+  ROUND_UP
+  ROUND_DOWN
+  ROUND_HALF_UP
+  ROUND_HALF_DOWN
+  ROUND_HALF_EVEN
+  ROUND_HALF_ODD
+  ROUND_CEILING
+  ROUND_FLOOR
+}
+
+enum AccountingMethod {
+  CASH
+  ACCRUAL
+}
+
+// #endregion
+
+/// Payment Terms
+model PaymentTerm {
+  id                    Int             @id @default(autoincrement())
+  normalizedPaymentTerm String          @map("normalized_payment_term")
+  paymentTerm           String          @map("payment_term")
+  dueDays               Int             @map("due_days")
+  discountPercent       Float?          @map("discount_percent")
+  discountDays          Int?            @map("discount_days")
+  description           String?
+  lastUpdatedBy         String?         @map("last_updated_by")
+  createdAt             DateTime        @default(now()) @map("created_at")
+  updatedAt             DateTime        @updatedAt @map("updated_at")
+  companyPresets        CompanyPreset[]
+
+  @@unique([normalizedPaymentTerm, dueDays])
+}
+
+/// Tags
+
+// Tag Categories
+model TagCategory {
+  id                     Int      @id @default(autoincrement())
+  normalizedCategoryName String   @unique @map("normalized_category_name")
+  tagCategoryName        String   @map("tag_category_name")
+  colorIndex             Int?     @map("color_index")
+  color                  String?
+  icon                   String?
+  description            String?
+  lastUpdatedBy          String?  @map("last_updated_by")
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+  tags                   Tag[]
+}
+
+// Tags
+model Tag {
+  id                             Int                      @id @default(autoincrement())
+  normalizedTagName              String                   @map("normalized_tag_name")
+  tagName                        String
+  colorIndex                     Int?                     @map("color_index")
+  color                          String?
+  icon                           String?
+  description                    String?
+  lastUpdatedBy                  String?                  @map("last_updated_by")
+  createdAt                      DateTime                 @default(now()) @map("created_at")
+  updatedAt                      DateTime                 @updatedAt @map("updated_at")
+  tagCategoryId                  Int                      @map("tag_category_id")
+  tagCategory                    TagCategory              @relation(fields: [tagCategoryId], references: [id])
+  companyTags                    CompanyTag[]
+  customerTags                   CompanyRelationshipTag[]
+  retailerProductTags            RetailerProductTag[]
+  retailOrderTags                RetailOrderTag[]
+  orderItemTags                  RetailOrderItemTag[]
+  fieldTags                      FieldTag[]
+  warehouseTags                  WarehouseTag[]
+  growingSeasonTags              GrowingSeasonTag[]
+  fieldVersionTags               FieldVersionTag[]
+  enterpriseItems                EnterpriseItem[]
+  packages                       Package[]
+  discounts                      Discount[]
+  rebates                        Rebate[]
+  fieldLayers                    FieldLayer[]
+  productTags                    ProductTag[]
+  billingSplitItems              BillingSplitItem[]
+  growingSeasons                 GrowingSeason[]
+  billingAccountsByType          BillingAccount[]         @relation("AccountTypeTag")
+  billingAccountBySubTypes       BillingAccount[]         @relation("AccountSubTypeTag")
+  nutrientRemovalRatesByCrop     NutrientRemovalRate[]    @relation("NutrientRemovalRateCropTypeTag")
+  nutrientRemovalRatesByNutrient NutrientRemovalRate[]    @relation("NutrientRemovalRateNutrientTag")
+  nutrientRemovalRate            NutrientRemovalRate[]    @relation("NutrientRemovalRateYearTag")
+  storageLocations               StorageLocation[]
+  purchaseOrdersByStatus         PurchaseOrder[]          @relation("PurchaseOrderStatusTag")
+  purchaseOrdersByPaymentTerms   PurchaseOrder[]          @relation("PurchaseOrderPaymentTermsTag")
+  RetailOrder                    RetailOrder[]
+  RetailOrderLineItem            RetailOrderLineItem[]
+  PurchaseOrderFees              PurchaseOrderFee[]
+  retailOrderFieldsByCrop        RetailOrderFieldInfo[]
+
+  @@unique([normalizedTagName, tagCategoryId])
+}
+
+model Taxonomy {
+  id                     Int               @id @default(autoincrement())
+  companyId              String            @default("11111111-1111-1111-1111-111111111111") @map("company_id")
+  normalizedTaxonomyName String            @map("normalized_taxonomy_name")
+  taxonomyName           String            @map("taxonomy_name")
+  description            String?
+  parentTaxonomyId       Int               @default(0) @map("parent_taxonomy_id")
+  taxonomyLevel          Int               @map("taxonomy_level")
+  colorIndex             Int?              @map("color_index")
+  color                  String? // Hex color code
+  iconName               String?           @map("icon_name") // From a set of predefined icons
+  iconUrl                String?           @map("icon_url") // This can be a custom icon
+  editable               Boolean?
+  lastUpdatedBy          String?           @map("last_updated_by")
+  createdAt              DateTime          @default(now()) @map("created_at")
+  updatedAt              DateTime          @updatedAt @map("updated_at")
+  parentTaxonomy         Taxonomy?         @relation("TaxonomyParentChild", fields: [parentTaxonomyId], references: [id])
+  childTaxonomies        Taxonomy[]        @relation("TaxonomyParentChild")
+  retailerProducts       RetailerProduct[]
+  products               Product[]
+
+  @@unique([normalizedTaxonomyName, taxonomyLevel, parentTaxonomyId, companyId])
+}
+
+/// User Info
+model UserInvite {
+  id              Int      @id @default(autoincrement())
+  email           String
+  companyId       String   @map("company_id")
+  roleId          Int      @map("role_id")
+  inviteToken     String   @map("invite_token")
+  invitedByUserId String   @map("invited_by_user_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  invitedBy       User     @relation(fields: [invitedByUserId], references: [id])
+  company         Company  @relation(fields: [companyId], references: [id])
+  role            Role     @relation(fields: [roleId], references: [id])
+
+  @@unique([email, companyId, roleId])
+}
+
+/// Audit
+model UserAudit {
+  id        Int              @id @default(autoincrement())
+  tableName String           @map("table_name")
+  action    UserAuditLogType
+  changedBy String           @default("UNKNOWN") @map("changed_by")
+  createdAt DateTime         @default(now()) @map("created_at")
+  oldValue  Json?            @map("old_value")
+  newValue  Json             @map("new_value")
+}
+
+/// Address
+model Address {
+  id                              Int                               @id @default(autoincrement())
+  addressLine1                    String                            @map("address_line_1")
+  addressLine2                    String?                           @map("address_line_2")
+  city                            String
+  state                           String
+  postalCode                      String                            @map("postal_code")
+  country                         String
+  lastUpdatedBy                   String                            @map("last_updated_by")
+  createdAt                       DateTime                          @default(now()) @map("created_at")
+  updatedAt                       DateTime                          @updatedAt @map("updated_at")
+  userAddress                     UserAddress[]
+  companyAddress                  CompanyAddress[]
+  warehouseAddress                WarehouseAddress[]
+  customerDeliveryLocationAddress CustomerDeliveryLocationAddress[]
+}
+
+/// User
+model User {
+  id              String            @id @default(cuid())
+  email           String            @unique // Normalized email. Uniquely identifies a user in the system
+  displayName     String?           @map("display_name")
+  firstName       String?           @map("first_name")
+  middleName      String?           @map("middle_name")
+  lastName        String?           @map("last_name")
+  notes           String?
+  lastUpdatedBy   String?           @map("last_updated_by")
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  userRoles       UserRole[]
+  orders          RetailOrder[]
+  schedules       Schedule[]
+  settings        UserSettings?
+  maintenanceLogs MaintenanceLog[]
+  assets          Asset[]
+  userInvite      UserInvite[]
+  addresses       UserAddress[]
+  phoneNumbers    UserPhoneNumber[]
+  externalUserIds ExternalUser[]
+  instantMessages InstantMessage[]
+}
+
+model ExternalUser {
+  id             Int      @id @default(autoincrement())
+  externalUserId String   @unique @map("external_user_id")
+  provider       String?
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  lastUpdatedBy  String?  @map("last_updated_by")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+}
+
+model UserAddress {
+  userId        String      @map("user_id")
+  addressId     Int         @map("address_id")
+  addressType   AddressType @map("address_type")
+  lastUpdatedBy String      @map("last_updated_by")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  user          User        @relation(fields: [userId], references: [id])
+  address       Address     @relation(fields: [addressId], references: [id])
+
+  @@id([userId, addressId, addressType])
+}
+
+model UserPhoneNumber {
+  userId          String          @map("user_id")
+  phoneNumberType PhoneNumberType @map("phone_number_type")
+  phoneNumber     String // E.164 format
+  lastUpdatedBy   String          @map("last_updated_by")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+  user            User            @relation(fields: [userId], references: [id])
+
+  @@id([userId, phoneNumberType])
+}
+
+model UserSettings {
+  userId              String    @id @map("user_id")
+  avatarUrl           String?   @map("avatar_url")
+  avatarFallbackImage String?   @map("avatar_fallback_image")
+  darkMode            Boolean   @map("dark_mode")
+  selectedUserRoleId  String?
+  additionalSettings  Json      @default("{}") @map("additional_settings")
+  user                User      @relation(fields: [userId], references: [id])
+  lastUpdatedBy       String    @map("last_updated_by")
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+  selectedUserRole    UserRole? @relation(fields: [selectedUserRoleId], references: [id])
+}
+
+// Company Data
+model CompanyType {
+  id                 Int       @id @default(autoincrement())
+  companyTypeName    String    @unique @map("company_type_name")
+  displayName        String    @map("display_name")
+  description        String?
+  colorId            Int?      @map("color_id")
+  color              String?
+  extendedProperties Json?     @map("extended_properties")
+  lastUpdatedBy      String?   @map("last_updated_by")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+  companies          Company[]
+}
+
+/// Company Info
+model Company {
+  id                         String                     @id @default(cuid())
+  normalizedCompanyName      String                     @unique @map("normalized_company_name")
+  companyName                String                     @map("company_name")
+  companyShortName           String?                    @map("company_short_name")
+  companyTypeId              Int                        @map("company_type_id")
+  parentCompanyId            String?                    @map("parent_company_id")
+  homepage                   String?
+  logoUrl                    String?                    @map("logo_url")
+  notes                      String?
+  extendedProperties         Json                       @default("{}") @map("extended_properties")
+  lastUpdatedBy              String?                    @map("last_updated_by")
+  createdAt                  DateTime                   @default(now()) @map("created_at")
+  updatedAt                  DateTime                   @updatedAt @map("updated_at")
+  companyType                CompanyType                @relation(fields: [companyTypeId], references: [id])
+  parentCompany              Company?                   @relation("CompanyParentChild", fields: [parentCompanyId], references: [id])
+  childCompanies             Company[]                  @relation("CompanyParentChild")
+  roles                      UserRole[]
+  companyServiceAccounts     CompanyServiceAccount[]
+  retailerProducts           RetailerProduct[]
+  manufacturerPricings       ManufacturerPrice[]
+  endCustomerPrices          RetailPrice[]
+  warehouses                 Warehouse[]
+  inventoryItems             InventoryItem[]
+  asset                      Asset[]
+  sourceOrders               RetailOrder[]              @relation("CompanyOrders")
+  customerOrders             RetailOrder[]              @relation("CustomerCompanyOrders")
+  userInvite                 UserInvite[]
+  addresses                  CompanyAddress[]
+  phoneNumbers               CompanyPhoneNumber[]
+  firstCompanyRelationships  CompanyRelationship[]      @relation("FirstCompany")
+  secondCompanyRelationships CompanyRelationship[]      @relation("SecondCompany")
+  companyTags                CompanyTag[]
+  instantMessages            InstantMessage[]
+  companySaaSFeatures        CompanySaaSFeature[]
+  fields                     Field[]
+  products                   Product[]
+  enterpriseItems            EnterpriseItem[]
+  billingSplitGroupAccounts  BillingSplitGroupAccount[]
+  firstRelatedCompanies      RelatedCompany[]           @relation("FirstRelatedCompany")
+  secondRelatedCompanies     RelatedCompany[]           @relation("SecondRelatedCompany")
+  discounts                  Discount[]
+  rebates                    Rebate[]
+  productCosts               ProductCost[]
+  chartOfAccounts            ChartOfAccount[]
+  companyPresets             CompanyPreset[]
+}
+
+model CompanyPreset {
+  companyId              String                 @id @map("company_id")
+  currency               String
+  timezone               String
+  currencyPrecision      Int                    @map("currency_precision")
+  currencyRoundingMethod CurrencyRoundingMethod @default(ROUND_UP) @map("currency_rounding_method")
+  accountingMethod       AccountingMethod       @default(CASH) @map("accounting_method")
+  defaultPaymentTermId   Int?                   @map("default_payment_term_id")
+  lastUpdatedBy          String?                @map("last_updated_by")
+  createdAt              DateTime               @default(now()) @map("created_at")
+  updatedAt              DateTime               @updatedAt @map("updated_at")
+  company                Company                @relation(fields: [companyId], references: [id])
+  defaultPaymentTerm     PaymentTerm?           @relation(fields: [defaultPaymentTermId], references: [id])
+}
+
+model CompanyTag {
+  companyId     String   @map("company_id")
+  tagId         Int      @map("tag_id")
+  lastUpdatedBy String?  @map("last_updated_by")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  company       Company  @relation(fields: [companyId], references: [id])
+  tag           Tag      @relation(fields: [tagId], references: [id])
+
+  @@id([companyId, tagId])
+}
+
+model CompanyAddress {
+  companyId     String      @map("company_id")
+  addressId     Int         @map("address_id")
+  addressType   AddressType @map("address_type")
+  lastUpdatedBy String?     @map("last_updated_by")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  company       Company     @relation(fields: [companyId], references: [id])
+  address       Address     @relation(fields: [addressId], references: [id])
+
+  @@id([companyId, addressId, addressType])
+}
+
+model CompanyPhoneNumber {
+  companyId       String          @map("company_id")
+  phoneNumberType PhoneNumberType @map("phone_number_type")
+  phoneNumber     String // E.164 format
+  lastUpdatedBy   String?         @map("last_updated_by")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+  company         Company         @relation(fields: [companyId], references: [id])
+
+  @@id([companyId, phoneNumberType])
+}
+
+/// Company SaaS Features
+model CompanySaaSFeature {
+  companyId     String   @map("company_id")
+  featureId     Int      @map("feature_id")
+  enabled       Boolean?
+  lastUpdatedBy String?  @map("last_updated_by")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  company       Company  @relation(fields: [companyId], references: [id])
+
+  @@id([companyId, featureId])
+}
+
+// Company Relationships
+model CompanyRelationshipType {
+  id                          Int                   @id @default(autoincrement())
+  companyRelationshipTypeName String                @unique @map("company_relationship_type_name")
+  displayName                 String                @map("display_name")
+  description                 String?
+  colorId                     Int?                  @map("color_id")
+  color                       String?
+  extendedProperties          Json?                 @map("extended_properties")
+  lastUpdatedBy               String?               @map("last_updated_by")
+  createdAt                   DateTime              @default(now()) @map("created_at")
+  updatedAt                   DateTime              @updatedAt @map("updated_at")
+  companyRelationships        CompanyRelationship[]
+  relatedCompanies            RelatedCompany[]
+}
+
+model CompanyRelationship {
+  id                        String                          @id @default(cuid())
+  firstCompanyId            String                          @map("first_company_id")
+  secondCompanyId           String                          @map("second_company_id")
+  companyRelationshipTypeId Int                             @map("company_relationship_type_id")
+  companyRelationshipStatus CompanyRelationshipStatus       @default(ACTIVE) @map("company_relationship_status")
+  notes                     String?
+  extendedProperties        Json                            @default("{}") @map("extended_properties")
+  lastUpdatedBy             String?                         @map("last_updated_by")
+  createdAt                 DateTime                        @default(now()) @map("created_at")
+  updatedAt                 DateTime                        @updatedAt @map("updated_at")
+  firstCompany              Company                         @relation("FirstCompany", fields: [firstCompanyId], references: [id])
+  secondCompany             Company                         @relation("SecondCompany", fields: [secondCompanyId], references: [id])
+  companyRelationshipType   CompanyRelationshipType         @relation(fields: [companyRelationshipTypeId], references: [id])
+  companyRelationshipTags   CompanyRelationshipTag[]
+  customerDeliveryLocations CustomerDeliveryLocation[]
+  instantMessages           InstantMessage[]
+  relatedCompanies          RelatedCompany[]
+  attachments               CompanyRelationshipAttachment[]
+
+  @@unique([firstCompanyId, secondCompanyId, companyRelationshipTypeId])
+  @@index([firstCompanyId, companyRelationshipTypeId], name: "CompanyRelationship_FirstCompanyRelationshipUniqueIndex")
+  @@index([secondCompanyId, companyRelationshipTypeId], name: "CompanyRelationship_SecondCompanyRelationshipUniqueIndex")
+}
+
+model CompanyRelationshipAttachment {
+  id                    Int                 @id @default(autoincrement())
+  companyRelationshipId String              @map("company_relationship_id")
+  url                   String
+  fileName              String              @map("file_name")
+  fileSize              Int                 @map("file_size") // Size in bytes
+  fileType              String              @map("file_type") // Mime type like "image/png", "application/pdf" etc.
+  createdAt             DateTime            @default(now()) @map("created_at")
+  updatedAt             DateTime            @updatedAt @map("updated_at")
+  companyRelationship   CompanyRelationship @relation(fields: [companyRelationshipId], references: [id])
+}
+
+/// Model to enable bidirectional relationships. This adds two entries per relationship to enable easy querying.
+model RelatedCompany {
+  id                           Int                          @id @default(autoincrement())
+  firstCompanyId               String                       @map("first_company_id")
+  secondCompanyId              String                       @map("second_company_id")
+  companyRelationshipTypeId    Int                          @map("company_relationship_type_id")
+  companyRelationshipDirection CompanyRelationshipDirection @default(FIRST_TO_SECOND_COMPANY) @map("company_relationship_direction")
+  companyRelationshipId        String                       @map("company_relationship_id")
+  lastUpdatedBy                String?                      @map("last_updated_by")
+  createdAt                    DateTime                     @default(now()) @map("created_at")
+  updatedAt                    DateTime                     @updatedAt @map("updated_at")
+  firstCompany                 Company                      @relation("FirstRelatedCompany", fields: [firstCompanyId], references: [id], onDelete: Cascade)
+  secondCompany                Company                      @relation("SecondRelatedCompany", fields: [secondCompanyId], references: [id], onDelete: Cascade)
+  companyRelationshipType      CompanyRelationshipType      @relation(fields: [companyRelationshipTypeId], references: [id])
+  companyRelationship          CompanyRelationship          @relation(fields: [companyRelationshipId], references: [id])
+
+  @@unique([firstCompanyId, secondCompanyId, companyRelationshipTypeId, companyRelationshipDirection, companyRelationshipId])
+  @@index([firstCompanyId, companyRelationshipTypeId], name: "RelatedCompany_FirstCompanyRelationshipUniqueIndex")
+}
+
+model CompanyRelationshipTag {
+  companyRelationshipId String              @map("company_relationship_id")
+  tagId                 Int                 @map("tag_id")
+  lastUpdatedBy         String?             @map("last_updated_by")
+  createdAt             DateTime            @default(now()) @map("created_at")
+  updatedAt             DateTime            @updatedAt @map("updated_at")
+  companyRelationship   CompanyRelationship @relation(fields: [companyRelationshipId], references: [id], onDelete: Cascade)
+  tag                   Tag                 @relation(fields: [tagId], references: [id])
+
+  @@id([companyRelationshipId, tagId])
+}
+
+/// Customer delivery location info
+model CustomerDeliveryLocation {
+  id                  Int                                   @id @default(autoincrement())
+  customerId          String                                @map("customer_id")
+  deliverLocationName String                                @map("delivery_location_name")
+  notes               String?
+  lastUpdatedBy       String?                               @map("last_updated_by")
+  createdAt           DateTime                              @default(now()) @map("created_at")
+  updatedAt           DateTime                              @updatedAt @map("updated_at")
+  customer            CompanyRelationship                   @relation(fields: [customerId], references: [id])
+  addresses           CustomerDeliveryLocationAddress[]
+  phoneNumber         CustomerDeliveryLocationPhoneNumber[]
+}
+
+/// Customer delivery location address
+model CustomerDeliveryLocationAddress {
+  deliveryLocationId       Int                      @map("delivery_location_id")
+  addressId                Int                      @map("address_id")
+  addressType              AddressType              @map("address_type")
+  lastUpdatedBy            String?                  @map("last_updated_by")
+  createdAt                DateTime                 @default(now()) @map("created_at")
+  updatedAt                DateTime                 @updatedAt @map("updated_at")
+  customerDeliveryLocation CustomerDeliveryLocation @relation(fields: [deliveryLocationId], references: [id])
+  address                  Address                  @relation(fields: [addressId], references: [id])
+
+  @@id([deliveryLocationId, addressId, addressType])
+}
+
+/// Customer delivery location phone number
+model CustomerDeliveryLocationPhoneNumber {
+  deliveryLocationId       Int                      @map("delivery_location_id")
+  phoneNumberType          PhoneNumberType          @map("phone_number_type")
+  phoneNumber              String // E.164 format
+  lastUpdatedBy            String?                  @map("last_updated_by")
+  createdAt                DateTime                 @default(now()) @map("created_at")
+  updatedAt                DateTime                 @updatedAt @map("updated_at")
+  customerDeliveryLocation CustomerDeliveryLocation @relation(fields: [deliveryLocationId], references: [id])
+
+  @@id([deliveryLocationId, phoneNumberType])
+}
+
+// User Roles & Permissions
+
+/// Roles (System Admin, Company Admin, User, etc.)
+model Role {
+  id            Int          @id @default(autoincrement())
+  roleName      String       @unique @map("role_name")
+  description   String?
+  lastUpdatedBy String?      @map("last_updated_by")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  userRoles     UserRole[]
+  userInvites   UserInvite[]
+}
+
+/// User Role associated with a company
+model UserRole {
+  id                     String                  @id @default(cuid())
+  userId                 String                  @map("user_id")
+  roleId                 Int                     @map("role_id")
+  companyId              String                  @map("company_id")
+  acl                    String? // Overrides the default ACL
+  notes                  String?
+  extendedProperties     Json?                   @map("extended_properties")
+  lastUpdatedBy          String?                 @map("last_updated_by")
+  createdAt              DateTime                @default(now()) @map("created_at")
+  updatedAt              DateTime                @updatedAt @map("updated_at")
+  user                   User                    @relation(fields: [userId], references: [id])
+  role                   Role                    @relation(fields: [roleId], references: [id])
+  company                Company                 @relation(fields: [companyId], references: [id])
+  userSettings           UserSettings[]
+  purchaseOrderApprovals PurchaseOrderApproval[]
+
+  @@unique([userId, roleId, companyId])
+}
+
+/// External Service API access info (Eg., Quickbooks access token)
+model CompanyServiceAccount {
+  id            String   @id @default(cuid())
+  serviceName   String   @unique @map("service_name")
+  companyId     String   @map("company_id")
+  accessToken   String   @map("access_token")
+  refreshToken  String?  @map("refresh_token")
+  lastUpdatedBy String?  @map("last_updated_by")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  company       Company  @relation(fields: [companyId], references: [id])
+
+  @@unique([serviceName, companyId])
+}
+
+// Manufacturer Product Data
+
+/// Products catalog from manufacturers (Example: CDMS Data)
+model Product {
+  id                        Int                        @id @default(autoincrement())
+  externalId                Int                        @unique @map("external_id")
+  productName               String                     @map("product_name")
+  productTypeId             Int?                       @map("product_type_id")
+  upc                       String?                    @unique
+  productSku                String?                    @map("product_sku")
+  barCode                   String?                    @map("bar_code")
+  labelDAT                  String                     @map("label_dat")
+  logoId                    Int                        @map("logo_id")
+  manId                     Int                        @map("man_id")
+  EPA                       String
+  manufacturerName          String                     @map("manufacturer_name")
+  commonName                String                     @map("common_name")
+  hasIcon                   Boolean                    @map("has_icon")
+  iconUrl                   String                     @map("icon_url")
+  iconUI                    String                     @map("icon_ui")
+  gaPageParam               String                     @map("ga_page_param")
+  isUs                      Boolean                    @map("is_us")
+  isCanada                  Boolean                    @map("is_canada")
+  isCoPack                  Boolean                    @map("is_co_pack")
+  manufacturerId            String                     @map("manufacturer_id")
+  lastUpdatedBy             String?                    @map("last_updated_by")
+  createdAt                 DateTime                   @default(now()) @map("created_at")
+  updatedAt                 DateTime                   @updatedAt @map("updated_at")
+  manufacturer              Company                    @relation(fields: [manufacturerId], references: [id])
+  productType               Taxonomy?                  @relation(fields: [productTypeId], references: [id])
+  productAvailability       ProductAvailability[]
+  productDocument           ProductDocument[]
+  manufacturerPrices        ManufacturerPrice[]
+  retailerProductComponents RetailerProductComponent[]
+  rebates                   Rebate[]
+  productCosts              ProductCost[]
+  productTags               ProductTag[]
+  inventoryItems            InventoryItem[]
+  purchaseOrderLineItems    PurchaseOrderLineItem[]
+}
+
+model ProductTag {
+  productId     Int      @map("product_id")
+  tagId         Int      @map("tag_id")
+  lastUpdatedBy String?  @map("last_updated_by")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  product       Product  @relation(fields: [productId], references: [id])
+  tag           Tag      @relation(fields: [tagId], references: [id])
+
+  @@id([productId, tagId])
+}
+
+/// Product availability in specific regions. Example, product may be available only in WA & IO, but not in CA
+model ProductAvailability {
+  id            Int      @id @default(autoincrement())
+  productId     Int      @unique @map("product_id")
+  country       String
+  region        String
+  value         String
+  lastUpdatedBy String?  @map("last_updated_by")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  product       Product  @relation(fields: [productId], references: [id])
+}
+
+/// Links to product documents. Specific to CDMS.
+model ProductDocument {
+  id          Int      @id @default(autoincrement())
+  productId   Int      @unique @map("product_id")
+  siteUrl     String   @map("site_url")
+  labelFolder String   @map("label_folder")
+  fileName    String   @map("file_name")
+  description String
+  docType     String   @map("doc_type")
+  docId       Int      @map("doc_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  product     Product  @relation(fields: [productId], references: [id])
+}
+
+/// Retail Price
+model ProductCost {
+  id                  Int               @id @default(autoincrement())
+  productId           Int               @map("product_id") // Manufacturer Product ID
+  companyId           String            @map("company_id") // Ag Retailer Company ID
+  unitOfMeasurementId Int               @map("unit_id")
+  unitPrice           Float             @map("unit_price")
+  packageId           Int?              @map("package_id")
+  packageCost         Float             @map("package_cost")
+  active              Boolean
+  startDate           DateTime          @map("start_date")
+  endDate             DateTime?         @map("end_date")
+  lastUpdatedBy       String?           @map("last_updated_by")
+  createdAt           DateTime          @default(now()) @map("created_at")
+  updatedAt           DateTime          @updatedAt @map("updated_at")
+  product             Product           @relation(fields: [productId], references: [id])
+  company             Company           @relation(fields: [companyId], references: [id])
+  unitOfMeasurement   UnitOfMeasurement @relation(fields: [unitOfMeasurementId], references: [id])
+  package             Package?          @relation(fields: [packageId], references: [id])
+
+  @@unique([productId, companyId, startDate])
+}
+
+/// Unit of measurement.  All unit names are stored as normalized strings (lowercase strings).
+model UnitOfMeasurement {
+  id                              Int                        @id @default(autoincrement())
+  baseUnitId                      Int?                       @map("base_unit_id")
+  unitName                        String                     @unique @map("unit_name") // could be "lb", "gal", etc.
+  singularName                    String?                    @map("singular_name") // Example: "pound", "gallon", etc.
+  pluralName                      String?                    @map("plural_name") // Example: "pounds", "gallons", etc.
+  unitOfMeasurementType           UnitOfMeasurementType?     @map("unit_of_measurement_type")
+  conversionFactor                Float?                     @default(1.0) @map("conversion_factor") // conversion factor to base unit
+  numeratorUnitId                 Int?                       @map("numerator_unit_id") // for compound units, references another UnitOfMeasurement (e.g., "pounds")
+  numeratorUnitType               UnitOfMeasurementType?     @map("numerator_unit_type") // for compound units, references another UnitOfMeasurement (e.g., "pounds")
+  numeratorMultiplier             Float                      @default(1.0) @map("numerator_multiplier") // for compound units, multiplier for numerator 
+  denominatorUnitId               Int?                       @map("denominator_unit_id") // for compound units, references another UnitOfMeasurement (e.g., "acre")
+  denominatorUnitType             UnitOfMeasurementType?     @map("denominator_unit_type") // for compound units, references another UnitOfMeasurement (e.g., "acre")
+  denominatorMultiplier           Float                      @default(1.0) @map("denominator_multiplier") // for compound units, multiplier for denominator
+  colorIndex                      Int?                       @map("color_index")
+  lastUpdatedBy                   String?                    @map("last_updated_by")
+  createdAt                       DateTime                   @default(now()) @map("created_at")
+  updatedAt                       DateTime                   @updatedAt @map("updated_at")
+  baseUnit                        UnitOfMeasurement?         @relation("BaseUnit", fields: [baseUnitId], references: [id])
+  derivedUnits                    UnitOfMeasurement[]        @relation("BaseUnit")
+  manufacturerPrices              ManufacturerPrice[]
+  InventoryItem                   InventoryItem[]
+  assetCapacityList               AssetCapacity[]
+  RetailerProductComponent        RetailerProductComponent[]
+  growingSeasonsByYield           GrowingSeason[]            @relation("YieldMeasurement")
+  growingSeasonsByYieldGoal       GrowingSeason[]            @relation("YieldGoalMeasurement")
+  Package                         Package[]
+  fromUnitConversionFactor        ConversionFactor[]         @relation("FromUnit")
+  toUnitConversionFactor          ConversionFactor[]         @relation("ToUnit")
+  numeratorUnit                   UnitOfMeasurement?         @relation("NumeratorUnit", fields: [numeratorUnitId], references: [id])
+  denominatorUnit                 UnitOfMeasurement?         @relation("DenominatorUnit", fields: [denominatorUnitId], references: [id])
+  unitOfMeasurementsByNumerator   UnitOfMeasurement[]        @relation("NumeratorUnit")
+  unitOfMeasurementsByDenominator UnitOfMeasurement[]        @relation("DenominatorUnit")
+  nutrientRemovalRates            NutrientRemovalRate[]
+  purchaseOrderLineItems          PurchaseOrderLineItem[]
+  retailOrderLineItems            RetailOrderLineItem[]
+  retailPrices                    RetailPrice[]
+  ProductCost                     ProductCost[]
+}
+
+model Package {
+  id                       Int                     @id @default(autoincrement())
+  packageName              String                  @unique @map("package_name")
+  description              String?
+  basePackageId            Int?                    @map("base_package_id")
+  baseUnitOfMeasurementId  Int                     @map("base_unit_of_measurement_id")
+  quantityInBaseUnit       Float                   @map("quantity_in_base_unit")
+  packageTypeId            Int                     @map("package_type_id")
+  quantityPerPackage       Float                   @map("quantity_per_package")
+  packageQuantityPerPallet Float?                  @map("package_quantity_per_pallet")
+  colorId                  Int?                    @map("color_id")
+  lastUpdatedBy            String?                 @map("last_updated_by")
+  createdAt                DateTime                @default(now()) @map("created_at")
+  updatedAt                DateTime                @updatedAt @map("updated_at")
+  unitOfMeasurement        UnitOfMeasurement       @relation(fields: [baseUnitOfMeasurementId], references: [id])
+  packageType              Tag                     @relation(fields: [packageTypeId], references: [id])
+  basePackage              Package?                @relation("BasePackage", fields: [basePackageId], references: [id])
+  derivedPackages          Package[]               @relation("BasePackage")
+  inventoryLedgerEntries   InventoryLedgerEntry[]
+  inventoryItems           InventoryItem[]
+  purchaseOrderLineItems   PurchaseOrderLineItem[]
+  retailOrderLineItems     RetailOrderLineItem[]
+  retailPrices             RetailPrice[]
+  ProductCost              ProductCost[]
+}
+
+/// Conversion factor. For future usecases. Possibly to convert from Metric to Imperial units.
+model ConversionFactor {
+  id                    Int               @id @default(autoincrement())
+  fromUnit              Int               @map("from_unit") // Foreign key referencing the 'from' unit in UnitOfMeasurement
+  toUnit                Int               @map("to_unit") // Foreign key referencing the 'to' unit in UnitOfMeasurement
+  factor                Float // The conversion factor for this unit pair
+  lastUpdatedBy         String?           @map("last_updated_by")
+  createdAt             DateTime          @default(now()) @map("created_at")
+  updatedAt             DateTime          @updatedAt @map("updated_at")
+  fromUnitOfMeasurement UnitOfMeasurement @relation("FromUnit", fields: [fromUnit], references: [id])
+  toUnitOfMeasurement   UnitOfMeasurement @relation("ToUnit", fields: [toUnit], references: [id])
+}
+
+/// Manufacturers Negotiated price for each product.
+model ManufacturerPrice {
+  id                Int               @id @default(autoincrement())
+  productId         Int               @map("product_id")
+  companyId         String            @map("company_id")
+  unitPrice         Float             @map("unit_price")
+  unitId            Int               @map("unit_id")
+  msrp              Float
+  map               Float
+  startDate         DateTime          @map("start_date")
+  endDate           DateTime?         @map("end_date")
+  lastUpdatedBy     String?           @map("last_updated_by")
+  createdAt         DateTime          @default(now()) @map("created_at")
+  updatedAt         DateTime          @updatedAt @map("updated_at")
+  product           Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
+  company           Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  unitOfMeasurement UnitOfMeasurement @relation(fields: [unitId], references: [id])
+
+  @@unique([productId, companyId, startDate])
+}
+
+/// Products offered by a retailer
+model RetailerProduct {
+  id                        Int                        @id @default(autoincrement())
+  companyId                 String                     @map("company_id")
+  productName               String                     @map("product_name")
+  productTypeId             Int?                       @map("product_type_id")
+  productSku                String                     @map("product_sku")
+  productImageUrl           String?                    @map("product_image_url")
+  productBrochureUrl        String?                    @map("product_catalog_url")
+  description               String?                    @map("product_description")
+  label                     String?
+  notes                     String?
+  extendedProperties        Json?                      @map("extended_properties")
+  lastUpdatedBy             String?                    @map("last_updated_by")
+  createdAt                 DateTime                   @default(now()) @map("created_at")
+  updatedAt                 DateTime                   @updatedAt @map("updated_at")
+  company                   Company                    @relation(fields: [companyId], references: [id])
+  productType               Taxonomy?                  @relation(fields: [productTypeId], references: [id])
+  retailerProductComponents RetailerProductComponent[]
+  retailPrices              RetailPrice[]
+  orderItems                RetailOrderLineItem[]
+  retailerProductTags       RetailerProductTag[]
+  discounts                 Discount[]
+
+  @@unique([companyId, productSku])
+  @@unique([companyId, productName])
+}
+
+model RetailerProductTag {
+  retailerProductId Int             @map("retailer_product_id")
+  tagId             Int             @map("tag_id")
+  lastUpdatedBy     String?         @map("last_updated_by")
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
+  retailerProduct   RetailerProduct @relation(fields: [retailerProductId], references: [id])
+  tag               Tag             @relation(fields: [tagId], references: [id])
+
+  @@id([retailerProductId, tagId])
+}
+
+/// Retailer Product Component - Composition of retailer product. This could be one or more products from a manufacturer.
+model RetailerProductComponent {
+  id                      Int                            @id @default(autoincrement())
+  retailerProductId       Int                            @map("retailer_product_id")
+  unitPrice               Float                          @map("unit_price")
+  unitOfMeasurementId     Int                            @map("unit_id")
+  measurementValue        Float                          @map("measurement_value")
+  productId               Int                            @map("product_id")
+  lastUpdatedBy           String?                        @map("last_updated_by")
+  createdAt               DateTime                       @default(now()) @map("created_at")
+  updatedAt               DateTime                       @updatedAt @map("updated_at")
+  retailerProduct         RetailerProduct                @relation(fields: [retailerProductId], references: [id])
+  product                 Product                        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  unitOfMeasurement       UnitOfMeasurement              @relation(fields: [unitOfMeasurementId], references: [id])
+  orderComponentOverrides RetailOrderComponentOverride[]
+
+  @@unique([retailerProductId, productId])
+}
+
+/// Retail Price
+model RetailPrice {
+  id                  Int               @id @default(autoincrement())
+  retailerProductId   Int               @map("retailer_product_id")
+  companyId           String            @map("company_id")
+  unitPrice           Float             @map("unit_price")
+  unitOfMeasurementId Int               @map("unit_id")
+  packageId           Int?              @map("package_id")
+  packagePrice        Float?            @map("package_price")
+  active              Boolean
+  startDate           DateTime          @map("start_date")
+  endDate             DateTime?         @map("end_date")
+  lastUpdatedBy       String?           @map("last_updated_by")
+  createdAt           DateTime          @default(now()) @map("created_at")
+  updatedAt           DateTime          @updatedAt @map("updated_at")
+  retailerProduct     RetailerProduct   @relation(fields: [retailerProductId], references: [id], onDelete: Cascade)
+  company             Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  unitOfMeasurement   UnitOfMeasurement @relation(fields: [unitOfMeasurementId], references: [id])
+  package             Package?          @relation(fields: [packageId], references: [id])
+
+  @@unique([retailerProductId, companyId, startDate])
+}
+
+model FreightProvider {
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  description   String?
+  lastUpdatedBy String?       @map("last_updated_by")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  freightRates  FreightRate[]
+}
+
+model FreightRate {
+  id               Int             @id @default(autoincrement())
+  freightProvideId Int             @map("freight_provider_id")
+  zoneId           Int?
+  minWeight        Float?
+  maxWeight        Float?
+  minVolume        Float?
+  maxVolume        Float?
+  price            Float
+  active           Boolean
+  startDate        DateTime        @map("start_date")
+  endDate          DateTime?       @map("end_date")
+  lastUpdatedBy    String?         @map("last_updated_by")
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @updatedAt @map("updated_at")
+  freightZone      FreightZone?    @relation(fields: [zoneId], references: [id])
+  provider         FreightProvider @relation(fields: [freightProvideId], references: [id])
+}
+
+model FreightZone {
+  id    Int           @id @default(autoincrement())
+  name  String
+  rates FreightRate[]
+}
+
+// Rebates, Discounts & Promotions
+
+model Rebate {
+  id              Int             @id @default(autoincrement())
+  companyId       String          @map("company_id")
+  productId       Int             @map("product_id")
+  rebateName      String          @map("rebate_name")
+  rebateTypeId    Int             @map("rebate_type_id")
+  rebateValue     Float           @map("rebate_value")
+  rebateValueType RebateValueType @map("rebate_value_type")
+  startDate       DateTime        @map("start_date")
+  endDate         DateTime?       @map("end_date")
+  notes           String?
+  lastUpdatedBy   String?         @map("last_updated_by")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+  company         Company         @relation(fields: [companyId], references: [id])
+  rebateType      Tag             @relation(fields: [rebateTypeId], references: [id])
+  product         Product         @relation(fields: [productId], references: [id])
+}
+
+model Discount {
+  id                Int               @id @default(autoincrement())
+  companyId         String            @map("company_id")
+  retailerProductId Int?              @map("retailer_product_id")
+  discountName      String            @map("discount_name")
+  discountTypeId    Int               @map("discount_type_id")
+  discountValue     Float             @map("discount_value")
+  discountValueType DiscountValueType @map("discount_value_type")
+  startDate         DateTime          @map("start_date")
+  endDate           DateTime?         @map("end_date")
+  notes             String?
+  lastUpdatedBy     String?           @map("last_updated_by")
+  createdAt         DateTime          @default(now()) @map("created_at")
+  updatedAt         DateTime          @updatedAt @map("updated_at")
+  company           Company           @relation(fields: [companyId], references: [id])
+  discountType      Tag               @relation(fields: [discountTypeId], references: [id])
+  retailerProduct   RetailerProduct?  @relation(fields: [retailerProductId], references: [id])
+}
+
+/// Warehouse/Storage facility info (Also referred to as Location)
+model Warehouse {
+  id               Int                    @id @default(autoincrement())
+  companyId        String                 @map("company_id")
+  warehouseName    String                 @map("warehouse_name")
+  notes            String?
+  lastUpdatedBy    String?                @map("last_updated_by")
+  createdAt        DateTime               @default(now()) @map("created_at")
+  updatedAt        DateTime               @updatedAt @map("updated_at")
+  company          Company                @relation(fields: [companyId], references: [id])
+  inventoryItems   InventoryItem[]
+  Asset            Asset[]
+  addresses        WarehouseAddress[]
+  phoneNumber      WarehousePhoneNumber[]
+  warehouseTags    WarehouseTag[]
+  storageLocations StorageLocation[]
+}
+
+model WarehouseTag {
+  warehouseId   Int       @map("warehouse_id")
+  tagId         Int       @map("tag_id")
+  lastUpdatedBy String?   @map("last_updated_by")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  warehouse     Warehouse @relation(fields: [warehouseId], references: [id])
+  tag           Tag       @relation(fields: [tagId], references: [id])
+
+  @@id([warehouseId, tagId])
+}
+
+/// Warehouse/Storage facility address
+model WarehouseAddress {
+  warehouseId   Int         @map("warehouse_id")
+  addressId     Int         @map("address_id")
+  addressType   AddressType @map("address_type")
+  lastUpdatedBy String?     @map("last_updated_by")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  warehouse     Warehouse   @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  address       Address     @relation(fields: [addressId], references: [id], onDelete: Cascade)
+
+  @@id([warehouseId, addressId, addressType])
+}
+
+/// Warehouse/Storage facility phone number
+model WarehousePhoneNumber {
+  warehouseId     Int             @map("warehouse_id")
+  phoneNumberType PhoneNumberType @map("phone_number_type")
+  phoneNumber     String // E.164 format
+  lastUpdatedBy   String?         @map("last_updated_by")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+  warehouse       Warehouse       @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+
+  @@id([warehouseId, phoneNumberType])
+}
+
+model StorageLocation {
+  id            Int               @id @default(autoincrement())
+  warehouseId   Int               @map("warehouse_id")
+  storageTypeId Int               @map("storage_type_id")
+  parentId      Int? // This establishes hierarchy
+  identifier    String?
+  barcode       String?
+  name          String // Specific name or identifier for the location
+  description   String?
+  lastUpdatedBy String?           @map("last_updated_by")
+  createdAt     DateTime          @default(now()) @map("created_at")
+  updatedAt     DateTime          @updatedAt @map("updated_at")
+  warehouse     Warehouse         @relation(fields: [warehouseId], references: [id])
+  storageType   Tag               @relation(fields: [storageTypeId], references: [id])
+  children      StorageLocation[] @relation("StorageLocationToStorageLocation")
+  parent        StorageLocation?  @relation("StorageLocationToStorageLocation", fields: [parentId], references: [id])
+}
+
+/// Orders placed by retailer to purchase products from manufacturers, suppliers or vendors
+model PurchaseOrder {
+  id                     Int                     @id @default(autoincrement())
+  retailOrderId          Int?                    @map("retail_order_id")
+  companyId              String                  @map("company_id") // Retailer Company Id
+  orderNumber            String                  @map("order_number") // unique order identifier
+  vendorCompanyId        Int // Vendor or Supplier ID
+  purchaseOrderStatusId  Int                     @map("purchase_order_status_id") // "Purchase Order Status" tag category
+  dateOrdered            DateTime                @map("date_ordered")
+  expectedDeliveryDate   DateTime?               @map("expected_delivery_date")
+  dateReceived           DateTime?               @map("date_received") // When all items in the PO are received
+  totalPrice             Float                   @map("total_price")
+  paymentTermsId         Int                     @map("payment_terms_id")
+  trackingNumber         String?                 @map("tracking_number") // Tracking number for the shipment
+  notes                  String?
+  extendedProperties     Json?                   @map("extended_properties")
+  lastUpdatedBy          String?                 @map("last_updated_by")
+  createdAt              DateTime                @default(now()) @map("created_at")
+  updatedAt              DateTime                @updatedAt @map("updated_at")
+  purchaseOrderStatus    Tag                     @relation("PurchaseOrderStatusTag", fields: [purchaseOrderStatusId], references: [id])
+  paymentTerms           Tag                     @relation("PurchaseOrderPaymentTermsTag", fields: [paymentTermsId], references: [id])
+  retailOrder            RetailOrder?            @relation("AssociatedRetailOrder", fields: [retailOrderId], references: [id])
+  lineItems              PurchaseOrderLineItem[]
+  purchaseOrderApprovals PurchaseOrderApproval[]
+  inventoryLedgerEntries InventoryLedgerEntry[]
+  purchaseOrderFees      PurchaseOrderFee[]
+  purchaseOrderDiscounts PurchaseOrderDiscount[]
+  retailOrders           RetailOrder[]           @relation("AssociatedPurchaseOrder")
+
+  @@unique([companyId, orderNumber])
+  @@index([companyId])
+  @@index([vendorCompanyId])
+}
+
+model PurchaseOrderLineItem {
+  id                          Int                     @id @default(autoincrement())
+  purchaseOrderId             Int                     @map("purchase_order_id") // Reference to the PurchaseOrder
+  productId                   Int                     @map("product_id") // Reference to the Product
+  orderedQty                  Float                   @map("ordered_qty") // Ordered quantity in base UoM
+  receivedQty                 Float?                  @map("received_qty") // Received quantity in base UoM
+  unitPrice                   Float                   @map("unit_price") // Unit price in base UoM
+  unitOfMeasurementId         Int                     @map("unit_of_measurement_id")
+  orderQtyByPackage           Float?                  @map("order_qty_by_package") // Ordered quantity in package UoM
+  receivedQtyByPackage        Float?                  @map("received_qty_by_package") // Received quantity in package UoM
+  unitPriceByPackage          Float?                  @map("unit_price_by_package") // Unit price in package UoM
+  packageId                   Int?                    @map("package_id")
+  batchNumber                 String?                 @map("batch_number") // Batch number or Lot number
+  expectedDeliveryDate        DateTime?               @map("expected_delivery_date")
+  dateReceived                DateTime?               @map("date_received") // When all items in the PO are received
+  totalPrice                  Float                   @map("total_price") // Calculated based on unit price and quantity or unit price by package and quantity by package
+  sdsUrl                      String?                 @map("sds_url") // Safety Data Sheet URL
+  regulatoryInfo              String?                 @map("regulatory_info") // Regulatory info
+  specialHandlingInstructions String?                 @map("special_handling_instructions") // Special handling instructions
+  returnPolicy                String?                 @map("return_policy") // Return policy
+  notes                       String?
+  lastUpdatedBy               String?                 @map("last_updated_by")
+  createdAt                   DateTime                @default(now()) @map("created_at")
+  updatedAt                   DateTime                @updatedAt @map("updated_at")
+  purchaseOrder               PurchaseOrder           @relation(fields: [purchaseOrderId], references: [id])
+  unitOfMeasurement           UnitOfMeasurement       @relation(fields: [unitOfMeasurementId], references: [id])
+  product                     Product                 @relation(fields: [productId], references: [id])
+  package                     Package?                @relation(fields: [packageId], references: [id])
+  inventoryLedgerEntries      InventoryLedgerEntry[]
+  purchaseOrderDiscounts      PurchaseOrderDiscount[]
+}
+
+model PurchaseOrderFee {
+  id                 Int           @id @default(autoincrement())
+  purchaseOrderId    Int           @map("purchase_order_id")
+  feeTypeId          Int           @map("fee_type_id")
+  value              Float         @map("value")
+  isPercentage       Boolean       @map("is_percentage")
+  appliedAmount      Float         @map("applied_amount")
+  applyAfterDiscount Boolean       @default(false) @map("apply_after_discount")
+  notes              String?
+  lastUpdatedBy      String?       @map("last_updated_by")
+  createdAt          DateTime      @default(now()) @map("created_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
+  purchaseOrder      PurchaseOrder @relation(fields: [purchaseOrderId], references: [id])
+  feeType            Tag           @relation(fields: [feeTypeId], references: [id])
+}
+
+model PurchaseOrderDiscount {
+  id              Int                    @id @default(autoincrement())
+  purchaseOrderId Int                    @map("purchase_order_id")
+  lineItemId      Int?                   @map("line_item_id")
+  value           Float                  @map("value")
+  isPercentage    Boolean                @map("is_percentage")
+  appliedAmount   Float                  @map("applied_amount")
+  notes           String?
+  lastUpdatedBy   String?                @map("last_updated_by")
+  createdAt       DateTime               @default(now()) @map("created_at")
+  updatedAt       DateTime               @updatedAt @map("updated_at")
+  purchaseOrder   PurchaseOrder          @relation(fields: [purchaseOrderId], references: [id])
+  lineItem        PurchaseOrderLineItem? @relation(fields: [lineItemId], references: [id])
+}
+
+model PurchaseOrderApproval {
+  id              Int            @id @default(autoincrement())
+  purchaseOrderId Int            @map("purchase_order_id")
+  userRoleId      String         @map("user_role_id")
+  approvalStatus  ApprovalStatus
+  notes           String?
+  lastUpdatedBy   String?        @map("last_updated_by")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  purchaseOrder   PurchaseOrder  @relation(fields: [purchaseOrderId], references: [id])
+  userRole        UserRole       @relation(fields: [userRoleId], references: [id])
+}
+
+/// Inventory of base component
+// TODO: Identify if we need to track inventory of retailer product
+model InventoryItem {
+  id                    Int                    @id @default(autoincrement())
+  productId             Int                    @map("product_id")
+  warehouseId           Int                    @map("warehouse_id")
+  storageLocationId     Int?                   @map("storage_location_id")
+  companyId             String                 @map("company_id")
+  currentStock          Float                  @default(0.0) @map("total_quantity")
+  unitOfMeasurementId   Int                    @map("unit_of_measurement_id")
+  packageId             Int?                   @map("package_id")
+  numberOfPackages      Int?                   @map("number_of_packages")
+  lastUpdatedBy         String?                @map("last_updated_by")
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @updatedAt @map("updated_at")
+  product               Product                @relation(fields: [productId], references: [id])
+  warehouse             Warehouse              @relation(fields: [warehouseId], references: [id])
+  company               Company                @relation(fields: [companyId], references: [id])
+  unitOfMeasurement     UnitOfMeasurement      @relation(fields: [unitOfMeasurementId], references: [id])
+  package               Package?               @relation(fields: [packageId], references: [id])
+  inventoryLedgerEntry  InventoryLedgerEntry[]
+  inventoryItemBarcodes InventoryItemBarcode[]
+
+  @@unique([productId, warehouseId, companyId])
+}
+
+model InventoryItemBarcode {
+  id              Int       @id @default(autoincrement())
+  inventoryItemId Int // Reference to InventoryItem
+  barcode         String    @unique
+  expirationDate  DateTime? @map("expiration_date")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+}
+
+/// Inventory Transaction Sub Type. Examples: Inbound, Outbound, Spillage, etc.
+model InventoryTransactionSubType {
+  id                     Int                    @id @default(autoincrement())
+  companyId              String                 @default("11111111-1111-1111-1111-111111111111") @map("company_id")
+  subTypeName            String                 @unique @map("sub_type_name")
+  lastUpdatedBy          String?                @map("last_updated_by")
+  createdAt              DateTime               @default(now()) @map("created_at")
+  updatedAt              DateTime               @updatedAt @map("updated_at")
+  inventoryLedgerEntries InventoryLedgerEntry[]
+
+  @@index([companyId])
+}
+
+/// Inventory ledger entry tracking each change (add/remove)
+model InventoryLedgerEntry {
+  id                      Int                         @id @default(autoincrement())
+  transactionSubTypeId    Int
+  packageId               Int                         @map("package_id")
+  inventoryItemId         Int                         @map("inventory_item_id")
+  purchaseOrderId         Int?                        @map("purchase_order_id")
+  purchaseOrderLineItemId Int?                        @map("purchase_order_line_item_id")
+  retailOrderId           Int?                        @map("retail_order_id")
+  retailOrderLineItemId   Int?                        @map("retail_order_line_item_id")
+  barcode                 String?
+  lotNumber               String?
+  quantityChangeByPackage Float                       @map("quantity_change") // This can be arrived based on the quantity change of the packages
+  quantityChangeByBaseUOM Float?                      @map("quantity_change_by_base_uom") // This can be arrived based on the quantity change at base unit of measurement
+  cost                    Float?                      @map("cost")
+  lastUpdatedBy           String?                     @map("last_updated_by")
+  createdAt               DateTime                    @default(now()) @map("created_at")
+  updatedAt               DateTime                    @updatedAt @map("updated_at")
+  transactionType         TransactionType             @map("transaction_type")
+  package                 Package                     @relation(fields: [packageId], references: [id])
+  transactionSubType      InventoryTransactionSubType @relation(fields: [transactionSubTypeId], references: [id])
+  inventoryItem           InventoryItem               @relation(fields: [inventoryItemId], references: [id])
+  purchaseOrder           PurchaseOrder?              @relation(fields: [purchaseOrderId], references: [id])
+  purchaseOrderLineItem   PurchaseOrderLineItem?      @relation(fields: [purchaseOrderLineItemId], references: [id])
+  retailOrder             RetailOrder?                @relation(fields: [retailOrderId], references: [id])
+  retailOrderLineItem     RetailOrderLineItem?        @relation(fields: [retailOrderLineItemId], references: [id])
+
+  @@index([inventoryItemId])
+  @@index([inventoryItemId, packageId])
+  @@index([purchaseOrderId])
+  @@index([retailOrderId])
+}
+
+// Orders
+
+/// Sales or Custom Application Order - Ag Retailer selling products or services to customer
+model RetailOrder {
+  id                   Int                    @id @default(autoincrement())
+  purchaseOrderId      Int?                   @map("purchase_order_id") // Associated purchase order if any
+  companyId            String                 @map("sourceCompanyId")
+  customerCompanyId    String
+  userId               String
+  notes                String?
+  extendedProperties   Json?                  @map("extended_properties")
+  lastUpdatedBy        String?                @map("last_updated_by")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @updatedAt @map("updated_at")
+  status               OrderStatusType
+  orderTypeId          Int                    @map("order_type_id") // Tag Category: Retail Order Type
+  orderItems           RetailOrderLineItem[]
+  company              Company                @relation("CompanyOrders", fields: [companyId], references: [id])
+  customerCompany      Company                @relation("CustomerCompanyOrders", fields: [customerCompanyId], references: [id])
+  user                 User                   @relation(fields: [userId], references: [id])
+  orderType            Tag                    @relation(fields: [orderTypeId], references: [id])
+  purchaseOrder        PurchaseOrder?         @relation("AssociatedPurchaseOrder", fields: [purchaseOrderId], references: [id])
+  orderTags            RetailOrderTag[]
+  instantMessages      InstantMessage[]
+  InventoryLedgerEntry InventoryLedgerEntry[]
+  retailOrderFields    RetailOrderFieldInfo[]
+  purchaseOrders       PurchaseOrder[]        @relation("AssociatedRetailOrder")
+}
+
+model RetailOrderTag {
+  orderId       Int         @map("order_id")
+  tagId         Int         @map("tag_id")
+  lastUpdatedBy String?     @map("last_updated_by")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  order         RetailOrder @relation(fields: [orderId], references: [id])
+  tag           Tag         @relation(fields: [tagId], references: [id])
+
+  @@id([orderId, tagId])
+}
+
+/// Order Line Item for a retailer product
+model RetailOrderLineItem {
+  id                     Int                            @id @default(autoincrement())
+  orderId                Int                            @map("order_id")
+  itemTypeId             Int                            @map("order_type_id") // Tag Category: Retail Order Type
+  retailerProductId      Int                            @map("retailer_product_id")
+  quantity               Int
+  unitOfMeasurementId    Int?                           @map("unit_of_measurement_id")
+  packageId              Int?                           @map("package_id")
+  packageQuantity        Int?                           @map("package_quantity")
+  price                  Float
+  scheduleId             Int?                           @unique @map("schedule_id")
+  notes                  String?
+  lastUpdatedBy          String?                        @map("last_updated_by")
+  createdAt              DateTime                       @default(now()) @map("created_at")
+  updatedAt              DateTime                       @updatedAt @map("updated_at")
+  status                 OrderItemStatusType
+  order                  RetailOrder                    @relation(fields: [orderId], references: [id])
+  retailerProduct        RetailerProduct                @relation(fields: [retailerProductId], references: [id])
+  schedule               Schedule?                      @relation(fields: [scheduleId], references: [id])
+  itemType               Tag                            @relation(fields: [itemTypeId], references: [id])
+  unitOfMeasurement      UnitOfMeasurement?             @relation(fields: [unitOfMeasurementId], references: [id])
+  package                Package?                       @relation(fields: [packageId], references: [id])
+  orderItemTags          RetailOrderItemTag[]
+  orderComponentOverride RetailOrderComponentOverride[]
+  inventoryLedgerEntries InventoryLedgerEntry[]
+}
+
+model RetailOrderItemTag {
+  orderItemId   Int                 @map("order_item_id")
+  tagId         Int                 @map("tag_id")
+  lastUpdatedBy String?             @map("last_updated_by")
+  createdAt     DateTime            @default(now()) @map("created_at")
+  updatedAt     DateTime            @updatedAt @map("updated_at")
+  orderItem     RetailOrderLineItem @relation(fields: [orderItemId], references: [id])
+  tag           Tag                 @relation(fields: [tagId], references: [id])
+
+  @@id([orderItemId, tagId])
+}
+
+/// Sometimes a retailer may want to override the information on a RetailerProductComponent for a particular order, so to facilitate that we
+/// will store that here on the OrderItem itself
+model RetailOrderComponentOverride {
+  orderItemId                Int                      @map("order_item_id")
+  orderComponentId           Int                      @map("order_component_id")
+  retailerProductComponentId Int                      @map("retailer_product_component_id")
+  lastUpdatedBy              String?                  @map("last_updated_by")
+  createdAt                  DateTime                 @default(now()) @map("created_at")
+  updatedAt                  DateTime                 @updatedAt @map("updated_at")
+  orderItem                  RetailOrderLineItem      @relation(fields: [orderItemId], references: [id])
+  retailerProductComponent   RetailerProductComponent @relation(fields: [retailerProductComponentId], references: [id])
+
+  @@id([orderItemId, orderComponentId, retailerProductComponentId])
+}
+
+model RetailOrderFieldInfo {
+  id             Int         @id @default(autoincrement())
+  orderId        Int         @map("order_id")
+  fieldId        Int         @map("field_id")
+  cropId         Int         @map("crop_id")
+  estimatedAcres Float       @default(0) @map("estimated_acres")
+  billableAcres  Float       @default(0) @map("billable_acres")
+  retailOrder    RetailOrder @relation(fields: [orderId], references: [id])
+  field          Field       @relation(fields: [fieldId], references: [id])
+  crop           Tag         @relation(fields: [cropId], references: [id])
+
+  @@unique([orderId, fieldId])
+}
+
+/// Schedule of each order item. Ordering of product & service orders will be handled at application level
+model Schedule {
+  id            Int                  @id @default(autoincrement())
+  scheduleDate  DateTime             @map("schedule_date")
+  userId        String               @map("user_id")
+  lastUpdatedBy String?              @map("last_updated_by")
+  createdAt     DateTime             @default(now()) @map("created_at")
+  updatedAt     DateTime             @updatedAt @map("updated_at")
+  user          User                 @relation(fields: [userId], references: [id])
+  orderItem     RetailOrderLineItem?
+}
+
+// Field/ShipTo/Tank
+/// EntepriseItem
+
+/// EnterpriseItem represents a field, ship to, tank, etc.
+model EnterpriseItem {
+  id                  Int                @id @default(autoincrement())
+  companyId           String             @map("company_id")
+  itemTypeId          Int                @map("item_type_id")
+  itemId              Int                @map("item_id")
+  billingSplitGroupId Int?               @map("billing_split_group_id")
+  notes               String?
+  extendedProperties  Json?              @map("extended_properties")
+  lastUpdatedBy       String?            @map("last_updated_by")
+  createdAt           DateTime           @default(now()) @map("created_at")
+  updatedAt           DateTime           @updatedAt @map("updated_at")
+  itemType            Tag                @relation(fields: [itemTypeId], references: [id])
+  company             Company            @relation(fields: [companyId], references: [id])
+  billingSplitGroup   BillingSplitGroup? @relation(fields: [billingSplitGroupId], references: [id])
+
+  @@unique([itemId, itemTypeId])
+  @@index([companyId], name: "enterprise_item_company_id")
+  @@index([companyId, itemTypeId], name: "enterprise_item_company_id_item_type_id")
+}
+
+model BillingSplitGroup {
+  id                 Int                        @id @default(autoincrement())
+  splitGroupName     String                     @map("split_group_name")
+  defaultSplitItemId Int?                       @map("billing_split_item_id")
+  notes              String?
+  extendedProperties Json?                      @map("extended_properties")
+  lastUpdatedBy      String?                    @map("last_updated_by")
+  createdAt          DateTime                   @default(now()) @map("created_at")
+  updatedAt          DateTime                   @updatedAt @map("updated_at")
+  defaultSplitItem   BillingSplitItem?          @relation(fields: [defaultSplitItemId], references: [id])
+  enterpriseItems    EnterpriseItem[]
+  splitItems         BillingSplitItem[]         @relation("SplitGroup")
+  splitGroupAccounts BillingSplitGroupAccount[]
+}
+
+model BillingSplitGroupAccount {
+  id               Int               @id @default(autoincrement())
+  accountCompanyId String            @map("account_company_id")
+  splitGroupId     Int               @map("split_group_id")
+  lastUpdatedBy    String?           @map("last_updated_by")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  accountCompany   Company           @relation(fields: [accountCompanyId], references: [id])
+  splitGroup       BillingSplitGroup @relation(fields: [splitGroupId], references: [id])
+
+  @@unique([accountCompanyId, splitGroupId])
+}
+
+model BillingSplitItem {
+  id                      Int                             @id @default(autoincrement())
+  splitGroupId            Int                             @map("split_group_id")
+  parentSplitItemId       Int?                            @map("parent_split_item_id")
+  splitTierId             Int                             @map("split_level_id")
+  splitGroup              BillingSplitGroup               @relation("SplitGroup", fields: [splitGroupId], references: [id])
+  parentSplitItem         BillingSplitItem?               @relation("ParentSplit", fields: [parentSplitItemId], references: [id])
+  childSplitItems         BillingSplitItem[]              @relation("ParentSplit")
+  splitTier               Tag                             @relation(fields: [splitTierId], references: [id])
+  accountSplitAllocations BillingAccountSplitAllocation[]
+  splitGroups             BillingSplitGroup[]
+}
+
+model BillingAccountSplitAllocation {
+  splitGroupAccountId Int                   @map("split_group_account_id")
+  splitItemId         Int                   @map("split_item_id")
+  splitValue          Float                 @map("split_value")
+  splitValueType      BillingSplitValueType @default(PERCENTAGE) @map("split_type")
+  lastUpdatedBy       String?               @map("last_updated_by")
+  createdAt           DateTime              @default(now()) @map("created_at")
+  updatedAt           DateTime              @updatedAt @map("updated_at")
+  splitItem           BillingSplitItem      @relation(fields: [splitItemId], references: [id])
+
+  @@id([splitGroupAccountId, splitItemId])
+}
+
+/// Field info
+model Field {
+  id                  Int                    @id @default(autoincrement())
+  fieldName           String                 @map("field_name")
+  companyId           String                 @map("company_id") // This is the enterprise company id
+  active              Boolean                @default(true)
+  geoLocationId       Int?                   @map("geo_location_id")
+  plssLocation        String?                @map("plss_location") // Public Land Survey System Reference
+  plssLocationState   String?                @map("plss_location_state") // State in which the PLSS Reference is located
+  notes               String?
+  extendedProperties  Json?                  @map("extended_properties")
+  lastUpdatedBy       String?                @map("last_updated_by")
+  createdAt           DateTime               @default(now()) @map("created_at")
+  updatedAt           DateTime               @updatedAt @map("updated_at")
+  company             Company                @relation(fields: [companyId], references: [id])
+  geoLocation         GeoLocation?           @relation(fields: [geoLocationId], references: [id])
+  fieldTags           FieldTag[]
+  fieldVersions       FieldVersion[]
+  retailOrdersByField RetailOrderFieldInfo[]
+
+  @@unique([companyId, fieldName])
+}
+
+model FieldTag {
+  fieldId       Int      @map("field_id")
+  tagId         Int      @map("tag_id")
+  lastUpdatedBy String?  @map("last_updated_by")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  field         Field    @relation(fields: [fieldId], references: [id])
+  tag           Tag      @relation(fields: [tagId], references: [id])
+
+  @@id([fieldId, tagId])
+}
+
+model FieldVersion {
+  id               Int               @id @default(autoincrement())
+  startDate        DateTime          @map("start_date")
+  endDate          DateTime?         @map("end_date")
+  active           Boolean
+  fieldId          Int               @map("field_id")
+  estimatedArea    Float?            @map("estimated_area")
+  calculatedArea   Float?            @map("calculated_area")
+  notes            String?
+  lastUpdatedBy    String?           @map("last_updated_by")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  field            Field             @relation(fields: [fieldId], references: [id])
+  fieldVersionTags FieldVersionTag[]
+  fieldLayers      FieldLayer[]
+}
+
+model FieldVersionTag {
+  fieldVersionId Int          @map("field_version_id")
+  tagId          Int          @map("tag_id")
+  lastUpdatedBy  String?      @map("last_updated_by")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+  fieldVersion   FieldVersion @relation(fields: [fieldVersionId], references: [id])
+  tag            Tag          @relation(fields: [tagId], references: [id])
+
+  @@id([fieldVersionId, tagId])
+}
+
+model FieldLayer {
+  id                 Int              @id @default(autoincrement())
+  fieldVersionId     Int              @map("field_id")
+  manuallyGenerated  Boolean          @map("manually_generated")
+  layerTypeId        Int              @map("layer_type_id")
+  layerName          String           @map("layer_name")
+  layerDescription   String?          @map("layer_description")
+  layerFileName      String?          @map("layer_file_name")
+  geoJsonData        Json?            @map("geo_json_data")
+  geoLocationId      Int?             @map("geo_location_id")
+  area               Float            @default(0) // Area of the field layer
+  notes              String?
+  extendedProperties Json?            @map("extended_properties")
+  lastUpdatedBy      String?          @map("last_updated_by")
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime         @updatedAt @map("updated_at")
+  layerType          Tag              @relation(fields: [layerTypeId], references: [id])
+  fieldVersion       FieldVersion     @relation(fields: [fieldVersionId], references: [id])
+  geoLocation        GeoLocation?     @relation(fields: [geoLocationId], references: [id])
+  fieldLayerZones    FieldLayerZone[]
+
+  @@unique([fieldVersionId, layerTypeId, manuallyGenerated, layerName])
+}
+
+model FieldLayerZone {
+  id                 Int          @id @default(autoincrement())
+  fieldLayerId       Int          @map("field_layer_id")
+  zoneName           String       @map("zone_name")
+  zoneDescription    String?      @map("zone_description")
+  zoneColor          String?      @map("zone_color")
+  zoneOpacity        Float?       @map("zone_opacity")
+  zoneFileName       String?      @map("zone_file_name")
+  geoJsonData        Json?        @map("geo_json_data")
+  geoLocationId      Int          @map("geo_location_id")
+  area               Float        @default(0) // Area of the field layer zone
+  notes              String?
+  extendedProperties Json?        @map("extended_properties")
+  lastUpdatedBy      String?      @map("last_updated_by")
+  createdAt          DateTime     @default(now()) @map("created_at")
+  updatedAt          DateTime     @updatedAt @map("updated_at")
+  fieldLayer         FieldLayer   @relation(fields: [fieldLayerId], references: [id])
+  geoLocation        GeoLocation? @relation(fields: [geoLocationId], references: [id])
+}
+
+/// Growing season info
+model GrowingSeason {
+  id                     Int                @id @default(autoincrement())
+  startDate              DateTime           @map("start_date")
+  endDate                DateTime?          @map("end_date")
+  plantingDate           DateTime?          @map("planting_date")
+  harvestDate            DateTime?          @map("harvest_date")
+  cropYear               Int
+  cropId                 Int                @map("crop_id")
+  subfieldId             Int
+  yieldGoal              Float?             @map("yield_goal")
+  yieldGoalMeasurementId Int?               @map("yield_goal_measurement_id")
+  yield                  Float?
+  yieldMeasurementId     Int?               @map("yield_measurement_id")
+  notes                  String?
+  extendedProperties     Json?              @map("extended_properties")
+  lastUpdatedBy          String?            @map("last_updated_by")
+  createdAt              DateTime           @default(now()) @map("created_at")
+  updatedAt              DateTime           @updatedAt @map("updated_at")
+  crop                   Tag                @relation(fields: [cropId], references: [id])
+  yieldGoalMeasurement   UnitOfMeasurement? @relation("YieldGoalMeasurement", fields: [yieldGoalMeasurementId], references: [id])
+  yieldMeasurement       UnitOfMeasurement? @relation("YieldMeasurement", fields: [yieldMeasurementId], references: [id])
+  growingSeasonTags      GrowingSeasonTag[]
+}
+
+model GrowingSeasonTag {
+  growingSeasonId Int           @map("growing_season_id")
+  tagId           Int           @map("tag_id")
+  lastUpdatedBy   String?       @map("last_updated_by")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+  growingSeason   GrowingSeason @relation(fields: [growingSeasonId], references: [id])
+  tag             Tag           @relation(fields: [tagId], references: [id])
+
+  @@id([growingSeasonId, tagId])
+}
+
+/// Lat Long location of the field
+model GeoLocation {
+  id              Int              @id @default(autoincrement())
+  latitude        Float
+  longitude       Float
+  altitude        Float? // Could represent the altitude of the GPS reading in meters (for potential future use).
+  accuracy        Float? // Could represent the accuracy of the GPS reading in meters (for potential future use).
+  source          String? // Could be "GPS", "Manual", etc.
+  lastUpdatedBy   String?          @map("last_updated_by")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+  notes           String? // For any additional notes or comments
+  fields          Field[]
+  fieldLayerZones FieldLayerZone[]
+  FieldLayer      FieldLayer[]
+
+  @@unique([latitude, longitude])
+}
+
+// Asset Management
+
+/// Asset category
+model AssetCategory {
+  id                Int      @id @default(autoincrement())
+  assetCategoryName String   @unique @map("asset_category_name")
+  description       String?
+  lastUpdatedBy     String?  @map("last_updated_by")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  assets            Asset[]
+}
+
+/// Maintenance Log
+model MaintenanceLog {
+  id              Int      @id @default(autoincrement())
+  asset           Asset    @relation(fields: [assetId], references: [id])
+  assetId         Int      @map("asset_id")
+  performedById   String   @map("performed_by_id")
+  maintenanceDate DateTime @map("maintenance_date")
+  description     String?
+  cost            Float?
+  lastUpdatedBy   String?  @map("last_updated_by")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  performedBy     User     @relation(fields: [performedById], references: [id])
+}
+
+/// Asset info
+model Asset {
+  id                Int              @id @default(autoincrement())
+  companyId         String           @map("company_id")
+  warehouseId       Int              @map("warehouse_id")
+  assetName         String           @map("asset_name")
+  description       String?
+  assetCategoryId   Int              @map("asset_category_id")
+  assetLocation     String
+  purchaseDate      DateTime?        @map("purchase_date")
+  cost              Float?
+  serialNumber      String?          @unique @map("serial_number")
+  status            AssetStatusType
+  assignedToId      String?          @map("assigned_to_id")
+  lastUpdatedBy     String?          @map("last_updated_by")
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+  assignedTo        User?            @relation(fields: [assignedToId], references: [id])
+  assetCategory     AssetCategory    @relation(fields: [assetCategoryId], references: [id])
+  maintenanceLogs   MaintenanceLog[]
+  assetCapacityList AssetCapacity[]
+  company           Company          @relation(fields: [companyId], references: [id])
+  warehouse         Warehouse        @relation(fields: [warehouseId], references: [id])
+}
+
+/// Asset Capacity
+model AssetCapacity {
+  assetId              Int               @map("asset_id")
+  subUnitId            Int               @map("sub_unit_id")
+  assetValue           Float             @map("asset_value")
+  lastUpdatedBy        String?           @map("last_updated_by")
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  numberOfStorageUnits Int               @map("number_of_storage_units")
+  storageUnitCapacity  Float             @map("storage_unit_capacity")
+  unitOfMeasurementId  Int               @map("unit_of_measurement_id")
+  asset                Asset             @relation(fields: [assetId], references: [id])
+  unitOfMeasurement    UnitOfMeasurement @relation(fields: [unitOfMeasurementId], references: [id])
+
+  @@id([assetId, subUnitId])
+}
+
+// Communication
+model InstantMessage {
+  id                    Int                        @id @default(autoincrement())
+  parentCommunicationId Int?                       @map("parent_communication_id")
+  companyId             String                     @map("company_id")
+  userId                String                     @map("user_id")
+  public                Boolean? // Message visible to customerId users
+  customerId            String?                    @map("customer_id")
+  orderId               Int?                       @map("order_id")
+  message               String
+  pinned                Boolean
+  edited                Boolean?
+  createdAt             DateTime                   @default(now()) @map("created_at")
+  updatedAt             DateTime                   @updatedAt @map("updated_at")
+  company               Company                    @relation(fields: [companyId], references: [id])
+  user                  User                       @relation(fields: [userId], references: [id])
+  order                 RetailOrder?               @relation(fields: [orderId], references: [id])
+  customer              CompanyRelationship?       @relation(fields: [customerId], references: [id])
+  attachments           InstantMessageAttachment[]
+}
+
+model InstantMessageAttachment {
+  id               Int            @id @default(autoincrement())
+  instantMessageId Int            @map("instant_message_id")
+  url              String
+  fileName         String         @map("file_name")
+  fileSize         Int            @map("file_size") // Size in bytes
+  fileType         String         @map("file_type") // Mime type like "image/png", "application/pdf" etc.
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+  instantMessage   InstantMessage @relation(fields: [instantMessageId], references: [id])
+}
+
+/// Billing Account
+
+model BillingAccount {
+  id                     Int                           @id @default(autoincrement())
+  companyId              String                        @map("company_id") // This is the Account/Customer company Id
+  accountName            String                        @map("account_name")
+  accountNumber          String?                       @unique @map("account_number")
+  accountTypeId          Int                           @map("account_type_id")
+  accountSubTypeId       Int?                          @map("account_sub_type_id")
+  accountStatus          BillingAccountStatus          @map("account_status_id")
+  externalAccountId      String?                       @map("external_account_id")
+  externalAccountName    String?                       @map("external_account_name")
+  externalSubAccountName String?                       @map("external_sub_account_name")
+  extendedProperties     Json?                         @map("extended_properties")
+  lastUpdatedBy          String?                       @map("last_updated_by")
+  createdAt              DateTime                      @default(now()) @map("created_at")
+  updatedAt              DateTime                      @updatedAt @map("updated_at")
+  accountType            Tag                           @relation("AccountTypeTag", fields: [accountTypeId], references: [id])
+  accountSubType         Tag?                          @relation("AccountSubTypeTag", fields: [accountSubTypeId], references: [id])
+  journalEntires         TransactionJournalEntry[]
+  entryLines             TransactionJournalEntryLine[]
+}
+
+model TransactionJournalEntry {
+  id               Int                           @id @default(autoincrement())
+  billingAccountId Int                           @map("billing_account_id")
+  date             DateTime
+  description      String
+  lastUpdatedBy    String?                       @map("last_updated_by")
+  createdAt        DateTime                      @default(now()) @map("created_at")
+  updatedAt        DateTime                      @updatedAt @map("updated_at")
+  billingAccount   BillingAccount                @relation(fields: [billingAccountId], references: [id])
+  entryLines       TransactionJournalEntryLine[]
+}
+
+model TransactionJournalEntryLine {
+  id               Int                     @id @default(autoincrement())
+  billingAccountId Int                     @map("billing_account_id")
+  journalEntryId   Int                     @map("journal_entry_id")
+  debit            Decimal?                @default(0)
+  credit           Decimal?                @default(0)
+  lastUpdatedBy    String?                 @map("last_updated_by")
+  createdAt        DateTime                @default(now()) @map("created_at")
+  updatedAt        DateTime                @updatedAt @map("updated_at")
+  billingAccount   BillingAccount          @relation(fields: [billingAccountId], references: [id])
+  journalEntry     TransactionJournalEntry @relation(fields: [journalEntryId], references: [id])
+}
+
+/// Nutrient Removal Rates
+model NutrientRemovalRate {
+  id                 Int               @id @default(autoincrement())
+  companyId          String            @default("11111111-1111-1111-1111-111111111111") @map("company_id")
+  cropId             Int               @map("crop_id")
+  yearId             Int               @map("year_id")
+  nutrientId         Int               @map("nutrient_id")
+  isDryMatter        Boolean           @default(false) @map("is_dry_matter")
+  isSilage           Boolean           @default(false) @map("is_silage")
+  waterPercentage    Float             @default(0) @map("water_percentage") // Example: Percentage of water in silage (typically 67%).
+  removalRateValue   Float             @map("removal_rate_value")
+  removalRateUnitId  Int               @map("removal_rate_unit_id") // Typically lbs/bushel or lbs/ton or lbs/cwt
+  extendedProperties Json?             @map("extended_properties")
+  lastUpdatedBy      String?           @map("last_updated_by")
+  createdAt          DateTime          @default(now()) @map("created_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
+  crop               Tag               @relation("NutrientRemovalRateCropTypeTag", fields: [cropId], references: [id])
+  year               Tag               @relation("NutrientRemovalRateYearTag", fields: [yearId], references: [id])
+  nutrient           Tag               @relation("NutrientRemovalRateNutrientTag", fields: [nutrientId], references: [id])
+  removalRateUnit    UnitOfMeasurement @relation(fields: [removalRateUnitId], references: [id])
+
+  @@unique([cropId, companyId, nutrientId, isDryMatter, isSilage, waterPercentage, removalRateUnitId])
+  @@index([cropId, companyId], name: "crop_id_company_id_index")
+  @@index([cropId, companyId, nutrientId], name: "crop_id_company_id_nutrient_id_index")
+}
+
+// Accounting
+
+/// Currency
+model Currency {
+  id              Int              @id @default(autoincrement())
+  currencyName    String           @unique @map("currency_name")
+  currencyCode    String           @unique @map("currency_code")
+  roundingFactor  Int              @map("rounding_factor") // Number of decimal places to round to
+  currencySymbol  String?          @map("currency_symbol")
+  lastUpdatedBy   String?          @map("last_updated_by")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+  chartOfAccounts ChartOfAccount[]
+}
+
+/// Company Accounts
+model ChartOfAccount {
+  id                            Int                          @id @default(autoincrement())
+  parentAccountId               Int?                         @map("parent_account_id")
+  companyId                     String                       @map("company_id")
+  accountNumber                 String                       @map("account_number")
+  accountName                   String                       @map("account_name")
+  fullyQualifiedName            String?                      @map("fully_qualified_name")
+  accountClassification         ChartOfAccountClassification @map("account_classification")
+  accountType                   ChartOfAccountType           @map("account_type")
+  accountSubTypeId              Int?                         @map("account_sub_type_id")
+  active                        Boolean                      @default(true)
+  sparse                        Boolean                      @default(false) // Indicates if the account is a placeholder account
+  currencyId                    Int                          @map("currency_id")
+  notes                         String?
+  extendedProperties            Json?                        @map("extended_properties")
+  currentBalance                Float?                       @map("current_balance")
+  currentBalanceWithSubAccounts Float?                       @map("current_balance_with_sub_accounts")
+  lastUpdatedBy                 String?                      @map("last_updated_by")
+  createdAt                     DateTime                     @default(now()) @map("created_at")
+  updatedAt                     DateTime                     @updatedAt @map("updated_at")
+  company                       Company                      @relation(fields: [companyId], references: [id])
+  accountSubType                ChartOfAccountSubType?       @relation(fields: [accountSubTypeId], references: [id])
+  currency                      Currency                     @relation(fields: [currencyId], references: [id])
+  parentAccount                 ChartOfAccount?              @relation("ParentAccount", fields: [parentAccountId], references: [id])
+  childAccounts                 ChartOfAccount[]             @relation("ParentAccount")
+
+  @@unique([companyId, accountNumber])
+}
+
+model ChartOfAccountSubType {
+  id                   Int                @id @default(autoincrement())
+  accountType          ChartOfAccountType @map("account_type_id")
+  accountSubTypeName   String             @map("account_sub_type_name")
+  accountSubTypeNumber String             @map("account_sub_type_number")
+  lastUpdatedBy        String?            @map("last_updated_by")
+  createdAt            DateTime           @default(now()) @map("created_at")
+  updatedAt            DateTime           @updatedAt @map("updated_at")
+  ChartOfAccount       ChartOfAccount[]
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Count",
+    "description": "Count",
+    "unitName": "ea",
+    "quantityPerItem": 1,
+    "itemsPerPackage": 1,
+    "packagesPerPallet": 0,
+    "colorIndex": 0
+  },
+  {
+    "name": "Bulk (gallons)",
+    "description": "Bulk (gallons)",
+    "unitName": "gal",
+    "quantityPerItem": 1,
+    "itemsPerPackage": 1,
+    "packagesPerPallet": 1000,
+    "colorIndex": 1
+  },
+  {
+    "name": "Bulk (pounds)",
+    "description": "Bulk (pounds)",
+    "unitName": "lb",
+    "quantityPerItem": 1,
+    "itemsPerPackage": 1,
+    "packagesPerPallet": 1000,
+    "colorIndex": 2
+  },
+  {
+    "name": "2x2.5 gal case",
+    "description": "2x2.5 gal case",
+    "unitName": "gal",
+    "quantityPerItem": 2.5,
+    "itemsPerPackage": 2,
+    "packagesPerPallet": 36,
+    "colorIndex": 3
+  },
+  {
+    "name": "6x27.5 oz case",
+    "description": "6x27.5 oz case",
+    "unitName": "oz",
+    "quantityPerItem": 27.5,
+    "itemsPerPackage": 6,
+    "packagesPerPallet": 36,
+    "colorIndex": 4
+  },
+  {
+    "name": "4x64 ounce case",
+    "description": "4x64 ounce case",
+    "unitName": "oz",
+    "quantityPerItem": 64,
+    "itemsPerPackage": 4,
+    "packagesPerPallet": 36,
+    "colorIndex": 5
+  },
+  {
+    "name": "4x28 ounce case",
+    "description": "4x28 ounce case",
+    "unitName": "oz",
+    "quantityPerItem": 28,
+    "itemsPerPackage": 4,
+    "packagesPerPallet": 36,
+    "colorIndex": 6
+  },
+  {
+    "name": "250 gal tote",
+    "description": "250 gal tote",
+    "unitName": "gal",
+    "quantityPerItem": 250,
+    "itemsPerPackage": 1,
+    "packagesPerPallet": 1,
+    "colorIndex": 7
+  },
+  {
+    "name": "4x1 gal case",
+    "description": "4x1 gal case",
+    "unitName": "gal",
+    "quantityPerItem": 1,
+    "itemsPerPackage": 4,
+    "packagesPerPallet": 36,
+    "colorIndex": 8
+  }
+]

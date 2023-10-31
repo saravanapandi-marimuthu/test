@@ -1,0 +1,83 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "func",
+      "label": "Func: Website API Start",
+      "command": "host start",
+      "problemMatcher": "$func-node-watch",
+      "isBackground": true,
+      "dependsOn": "Website API - npm build",
+      "options": {
+        "cwd": "${workspaceFolder}/apis/api"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Website API - npm build",
+      "command": "npm run build",
+      "dependsOn": "Website API - npm install",
+      "problemMatcher": "$tsc",
+      "options": {
+        "cwd": "${workspaceFolder}/apis/api"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Website API - npm install",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/apis/api"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Website API - npm prune",
+      "command": "npm prune --production",
+      "dependsOn": "Website API - npm build",
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/apis/api"
+      }
+    },
+    {
+      "type": "func",
+      "label": "Func: Workflows API Start",
+      "command": "host start --port 8181",
+      "problemMatcher": "$func-node-watch",
+      "isBackground": true,
+      "dependsOn": "Workflows API - npm build",
+      "options": {
+        "cwd": "${workspaceFolder}/apis/workflows_api"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Workflows API - npm build",
+      "command": "npm run build",
+      "dependsOn": "Workflows API - npm install",
+      "problemMatcher": "$tsc",
+      "options": {
+        "cwd": "${workspaceFolder}/apis/workflows_api"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Workflows API - npm install",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/apis/workflows_api"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Workflows API - npm prune",
+      "command": "npm prune --production",
+      "dependsOn": "Workflows API - npm build",
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/apis/workflows_api"
+      }
+    }
+  ]
+}

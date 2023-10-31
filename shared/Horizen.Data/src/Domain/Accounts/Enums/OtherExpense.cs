@@ -1,0 +1,36 @@
+namespace Horizen.Data.Domain.Accounts.Enums;
+
+public enum OtherExpense
+{
+    Depreciation, // (default)
+    ExchangeGainOrLoss,
+    OtherMiscellaneousExpense,
+    PenaltiesSettlements,
+    Amortization,
+    GasAndFuel,
+    HomeOffice,
+    HomeOwnerRentalInsurance,
+    OtherHomeOfficeExpenses,
+    MortgageInterest,
+    RentAndLease,
+    RepairsAndMaintenance,
+    ParkingAndTolls,
+    Vehicle,
+    VehicleInsurance,
+    VehicleLease,
+    VehicleLoanInterest,
+    VehicleLoan,
+    VehicleRegistration,
+    VehicleRepairs,
+    OtherVehicleExpenses,
+    Utilities,
+    WashAndRoadService,
+    DeferredTaxExpense,
+    Depletion,
+    ExceptionalItems,
+    ExtraordinaryItems,
+    IncomeTaxOtherExpense,
+    MatCredit,
+    PriorPeriodItems,
+    TaxRoundOffGainOrLoss,
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "companyId": "11111111-1111-1111-1111-111111111111",
+    "name": "Horizen Ag Inc.",
+    "services": ["System"]
+  },
+  { "name": "AgHub Midwest", "services": ["AgRetailer"] },
+
+  {
+    "name": "Central Plains Agronomy.",
+    "services": ["AgRetailer"]
+  }
+]

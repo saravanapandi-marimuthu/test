@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <title>Sign up or sign in</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="locale" content="en-US">
+    <meta name="ROBOTS" content="NONE, NOARCHIVE">
+    <meta name="GOOGLEBOT" content="NOARCHIVE">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+
+    <link href="https://app.horizen.ag/external/external.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+
+</head>
+
+<body class="bg-white">
+
+    <header class="w-full p-4 bg-transparent fixed">
+        <img src="https://app.horizen.ag/horizen-logo.png" alt="Logo" class="h-8 w-auto">
+    </header>
+
+    <div class="flex items-center justify-center h-screen">
+        <div class="bg-white p-6 rounded-lg max-w-xs w-full">
+            <h2 class="mb-4 text-center text-xl font-semibold">Sign Up</h2>
+            <button id="GoogleExchange" class="w-full py-2 px-4 bg-blue-500 text-white rounded-lg mb-2">Google</button>
+            <button id="MicrosoftAccountExchange" class="w-full py-2 px-4 bg-blue-500 text-white rounded-lg mb-2">Microsoft</button>
+            <button id="SignUpWithLogonEmailExchange" class="w-full py-2 px-4 bg-blue-500 text-white rounded-lg mb-2">Email signup</button>
+            <p class="mt-2 text-sm text-gray-500 pt-20">By clicking on Google/Microsoft/Email signup, you agree to our <a href="#" class="underline">Terms & Conditions</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        "use strict"; 
+        $(document).ready(function () {
+            var socialTabIndex = 6;
+            var socialButtons = document.querySelectorAll("button");
+            socialButtons.forEach(function(button){
+                button.tabIndex = socialTabIndex;
+                socialTabIndex++;
+            });
+        });
+    </script>
+</body>
+
+</html>

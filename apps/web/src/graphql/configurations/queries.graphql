@@ -1,0 +1,150 @@
+query UnitOfMeasurements($input: GetUnitOfMeasurementsInput!) {
+  unitOfMeasurements(input: $input) {
+    items {
+      name
+      colorIndex
+      conversionFactor
+      baseUnit {
+        name
+      }
+      numeratorUnit {
+        name
+      }
+      denominatorUnit {
+        name
+      }
+    }
+    totalCount
+  }
+}
+
+query TagCategories($input: GetTagCategoriesInput!) {
+  tagCategories(input: $input) {
+    items {
+      id
+      name
+      colorIndex
+      tags {
+        id
+        name
+        colorIndex
+      }
+    }
+    totalCount
+  }
+}
+
+query TagsByCategoryName($input: GetTagsByCategoryNameInput!) {
+  tagsByCategoryName(input: $input) {
+    items {
+      id
+      name
+      description
+      colorIndex
+      tagCategory {
+        id
+        name
+        colorIndex
+        description
+      }
+    }
+    totalCount
+  }
+}
+
+query PaymentTerms($input: GetPaymentTermsInput!) {
+  paymentTerms(input: $input) {
+    items {
+      id
+      termName
+      dueDays
+      description
+    }
+    totalCount
+  }
+}
+
+query UnitOfMeasurement($input: GetUnitOfMeasurementsInput!) {
+  unitOfMeasurements(input: $input) {
+    items {
+      id
+      name
+      colorIndex
+      baseUnit {
+        name
+      }
+      numeratorUnit {
+        name
+        id
+      }
+      denominatorUnit {
+        id
+        name
+      }
+      numeratorMultiplier
+      denominatorMultiplier
+      conversionFactor
+      baseUnitId
+      unitOfMeasurementType
+    }
+    totalCount
+  }
+}
+
+query Packages($input: GetPackagesInput!) {
+  packages(input: $input) {
+    items {
+      id
+      name
+      colorIndex
+      quantityPerItem
+      quantityPerPackage
+      quantityPerPallet
+      unit {
+        id
+        name
+        unitOfMeasurementType
+      }
+    }
+  }
+}
+
+query ProductCategories {
+  productCategories {
+    items {
+      value
+      name
+      colorIndex
+    }
+  }
+}
+
+query ProductTypes {
+  productTypes {
+    items {
+      value
+      name
+      colorIndex
+    }
+  }
+}
+
+query RoleTypes {
+  roleTypes {
+    items {
+      value
+      name
+      colorIndex
+    }
+  }
+}
+
+query RetailOrderTypes {
+  retailOrderTypes {
+    items {
+      value
+      name
+      colorIndex
+    }
+  }
+}

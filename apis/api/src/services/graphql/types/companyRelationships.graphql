@@ -1,0 +1,185 @@
+# Types and Enums
+enum CompanyRelationshipTypeEnum {
+  CUSTOMER_ACCOUNT
+  ENTERPRISE_OWNER
+  ENTERPRISE_SERVICE_RETAILER
+  RETAILER_VENDOR
+}
+
+enum CompanyRelationshipDirection {
+  FIRST_TO_SECOND_COMPANY
+  SECOND_TO_FIRST_COMPANY
+}
+
+enum CompanyRelationshipStatus {
+  ACTIVE
+  INACTIVE
+}
+
+type CompanyRelationshipTag {
+  companyRelationshipId: String
+  tagId: Int
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  tagCategory: TagCategory
+  tag: Tag
+}
+
+type CompanyRelationshipType {
+  id: Int!
+  companyRelationshipTypeName: String!
+  displayName: String
+  colorId: Int
+  color: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type CompanyRelationship {
+  firstCompanyId: String!
+  secondCompanyId: String!
+  companyRelationshipId: Int
+  companyRelationshipTypeId: Int
+  companyRelationshipStatus: CompanyRelationshipStatus!
+  createdAt: DateTime
+  updatedAt: DateTime
+  extendedProperties: JSON
+  companyRelationshipTags: [CompanyRelationshipTag]
+}
+
+type RelatedCompany {
+  id: Int!
+  firstCompanyId: String
+  secondCompanyId: String
+  companyRelationshipTypeId: Int
+  companyRelationshipDirection: CompanyRelationshipDirection
+  companyRelationshipId: String
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  companyRelationshipType: CompanyRelationshipType!
+  companyRelationship: CompanyRelationship
+  secondCompany: Company
+}
+
+# Input Types
+input ContactPersonInput {
+  email: String
+  username: String
+  firstName: String
+  middleName: String
+  lastName: String
+}
+
+input CreateRelatedCompanyInput {
+  providerCompanyId: String!
+  companyName: String!
+  companyTypeName: String!
+  companyRelationshipType: CompanyRelationshipTypeEnum!
+  companyAddress: AddressInput
+  companyPhoneNumber: PhoneNumberInput
+  contactPerson: ContactPersonInput
+  companyExtendedProperties: JSON
+  companyTags: [TagLinkInput]
+  companyNotes: String
+  companyRelationshipExtendedProperties: JSON
+  companyRelationshipTags: [TagLinkInput]
+}
+
+input LinkCompaniesInput {
+  firstCompanyId: String!
+  secondCompanyId: String!
+  companyRelationshipType: CompanyRelationshipTypeEnum!
+  companyRelationshipTags: [TagLinkInput]
+  companyRelationshipExtendedProperties: JSON
+  extendedProperties: JSON
+}
+
+input UnlinkCompaniesInput {
+  firstCompanyId: String!
+  secondCompanyId: String!
+  companyRelationshipType: CompanyRelationshipTypeEnum!
+}
+
+input LinkAccountToEnterpriseInput {
+  providerCompanyId: String!
+  accountCompanyId: String!
+  enterpriseCompanyId: String!
+  extendedProperties: JSON
+}
+
+input RemoveAccountLinkFromEnterpriseInput {
+  providerCompanyId: String!
+  accountCompanyId: String!
+  enterpriseCompanyId: String!
+}
+
+# Output Types
+type CreateRelatedCompanyResult {
+  relatedCompany: RelatedCompany!
+}
+
+type LinkCompaniesResult {
+  linkedRelationship: CompanyRelationship!
+}
+
+type UnlinkCompaniesResult {
+  unlinkedRelationship: CompanyRelationship!
+}
+
+type LinkAccountToEnterpriseResult {
+  linkedRelationship: CompanyRelationship!
+}
+
+type RemoveAccountLinkFromEnterpriseResult {
+  removedRelationship: CompanyRelationship!
+}
+
+type GetRelatedCompaniesResult {
+  relatedCompanies: [RelatedCompany!]!
+  totalCount: Int!
+}
+
+type GetRelatedCompanyResult {
+  relatedCompany: RelatedCompany!
+}
+
+# Queries
+extend type Query {
+  getRelatedCompanies(
+    companyId: String!
+    relationshipType: CompanyRelationshipTypeEnum!
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+    filters: [FilterInput]
+    tagFilters: [TagFilterInput]
+  ): GetRelatedCompaniesResult!
+
+  getRelatedCompany(
+    companyId: String!
+    relatedCompanyId: String!
+    companyRelationshipType: CompanyRelationshipTypeEnum!
+  ): GetRelatedCompanyResult!
+}
+
+# Mutations
+extend type Mutation {
+  createRelatedCompany(
+    input: CreateRelatedCompanyInput!
+  ): CreateRelatedCompanyResult!
+
+  linkCompanies(input: LinkCompaniesInput!): LinkCompaniesResult!
+
+  unlinkCompanies(input: UnlinkCompaniesInput!): UnlinkCompaniesResult!
+
+  linkAccountToEnterprise(
+    input: LinkAccountToEnterpriseInput!
+  ): LinkAccountToEnterpriseResult!
+
+  removeAccountLinkFromEnterprise(
+    input: RemoveAccountLinkFromEnterpriseInput!
+  ): RemoveAccountLinkFromEnterpriseResult!
+}

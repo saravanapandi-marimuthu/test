@@ -1,0 +1,42 @@
+query RelatedCompanies($input: GetRelatedCompaniesInput!) {
+  relatedCompanies(input: $input) {
+    items {
+      company {
+        id
+        name
+        companyAddresses {
+          addressType
+          address {
+            addressLine1
+            addressLine1
+            city
+            postalCode
+            state
+            country
+          }
+        }
+        userRoles {
+          roles
+          user {
+            firstName
+            email
+          }
+        }
+      }
+      companyRelationshipType
+      companyRelationshipTypeName
+      companyRelationshipDirection
+      companyRelationshipTags {
+        tagId
+        tag {
+          name
+          colorIndex
+          tagCategory {
+            name
+          }
+        }
+      }
+    }
+    totalCount
+  }
+}

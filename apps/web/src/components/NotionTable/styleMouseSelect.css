@@ -1,0 +1,22 @@
+.mouse-select__frame {
+  background: blue;
+  opacity: 0.08;
+}
+
+.mouse-select__selectable {
+  transition: transform 0.1s linear;
+}
+
+.mouse-select__selectable.selected {
+  background: rgba(29, 0, 255, 0.08);
+  transform: scale(0.99);
+}
+
+.mouse-select__selectable.selected.disabled-bg {
+  background: none;
+  transform: scale(1);
+}
+
+.mouse-select__selectable.active {
+  background: rgba(29, 0, 255, 0.08);
+}

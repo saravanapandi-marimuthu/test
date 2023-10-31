@@ -1,0 +1,243 @@
+[
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "EnterpriseServiceProvider",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Sunrise Farm",
+      "services": ["Enterprise"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "1100 Golden Rd",
+            "addressLine2": null,
+            "city": "Harmony",
+            "country": "USA",
+            "postalCode": "54001",
+            "state": "Wisconsin"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005554321"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "info@sunrisefarm.com",
+        "firstName": "Carol",
+        "lastName": "Brown",
+        "middleName": "M"
+      },
+      "extendedProperties": {
+        "landArea": "150 acres"
+      },
+      "tagLinks": [
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Corn"
+        },
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Soybeans"
+        }
+      ]
+    }
+  },
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "EnterpriseServiceProvider",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Green Valley Farms",
+      "services": ["Enterprise"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "987 Meadow Dr",
+            "addressLine2": null,
+            "city": "Clearwater",
+            "country": "USA",
+            "postalCode": "33761",
+            "state": "Florida"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005558888"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "info@greenvalleyfarms.com",
+        "firstName": "Thomas",
+        "lastName": "Green",
+        "middleName": "J"
+      },
+      "extendedProperties": {
+        "landArea": "150 acres"
+      },
+      "tagLinks": [
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Cotton"
+        },
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Peanuts"
+        }
+      ]
+    }
+  },
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "EnterpriseServiceProvider",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Blue Lake Farm",
+      "services": ["Enterprise"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "654 Lake St",
+            "addressLine2": null,
+            "city": "Lakeview",
+            "country": "USA",
+            "postalCode": "48850",
+            "state": "Michigan"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005553333"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "info@bluelakefarm.com",
+        "firstName": "Emily",
+        "lastName": "Lake",
+        "middleName": "S"
+      },
+      "extendedProperties": {
+        "landArea": "150 acres"
+      },
+      "tagLinks": [
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Barley"
+        },
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Hay"
+        }
+      ]
+    }
+  },
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "EnterpriseServiceProvider",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Sunny Acres",
+      "services": ["Enterprise"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "432 Sunflower Lane",
+            "addressLine2": null,
+            "city": "Sunnydale",
+            "country": "USA",
+            "postalCode": "94085",
+            "state": "California"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005559999"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "info@sunnyacres.com",
+        "firstName": "David",
+        "lastName": "Miller",
+        "middleName": "L"
+      },
+      "extendedProperties": {
+        "landArea": "50 acres"
+      },
+      "tagLinks": [
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Wheat"
+        }
+      ]
+    }
+  },
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "relationshipType": "EnterpriseServiceProvider",
+    "notes": "This is a test note",
+    "company": {
+      "name": "Mountain View Orchards",
+      "services": ["Enterprise"],
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "321 Hillside Drive",
+            "addressLine2": null,
+            "city": "Hillsboro",
+            "country": "USA",
+            "postalCode": "97123",
+            "state": "Oregon"
+          }
+        }
+      ],
+      "phoneNumbers": [
+        {
+          "phoneNumberType": "Work",
+          "phoneNumber": {
+            "mainNumber": "18005557777"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "info@mtvieworchards.com",
+        "firstName": "Alice",
+        "lastName": "Williams",
+        "middleName": "K"
+      },
+      "extendedProperties": {
+        "landArea": "250 acres"
+      },
+      "tagLinks": [
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Sorghum"
+        },
+        {
+          "tagCategoryName": "Crop",
+          "tagName": "Oats"
+        }
+      ]
+    }
+  }
+]

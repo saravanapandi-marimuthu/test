@@ -1,0 +1,22 @@
+query ManufacturerProducts($input: GetManufacturerProductsInput!) {
+  manufacturerProducts(input: $input) {
+    items {
+      id
+      epa
+      commonName
+      externalId
+      gaPageParam
+      hasIcon
+      iconUrl
+      isCanada
+      isCoPack
+      isUs
+      labelDAT
+      manId
+      manufacturerCompanyId
+      manufacturerName
+      productName
+    }
+    totalCount
+  }
+}

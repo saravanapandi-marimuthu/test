@@ -1,0 +1,14 @@
+input GetAccountEnterpriseItemsInput {
+  companyId: String!
+  accountId: String!
+}
+
+type AccountEnterpriseItems {
+  fields: [EnterpriseField]
+}
+
+extend type Query {
+  getAccountEnterpriseItems(
+    input: GetAccountEnterpriseItemsInput!
+  ): [EnterpriseField]
+}

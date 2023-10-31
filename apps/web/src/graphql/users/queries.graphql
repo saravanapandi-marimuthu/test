@@ -1,0 +1,29 @@
+query Users($input: GetUsersInput!) {
+  users(input: $input) {
+    items {
+      id
+      displayName
+      firstName
+      lastName
+      middleName
+      email
+      userRoles {
+        rolesInfo {
+          value
+          name
+          colorIndex
+        }
+        company {
+          name
+          services
+          servicesInfo {
+            value
+            name
+            colorIndex
+          }
+        }
+      }
+    }
+    totalCount
+  }
+}

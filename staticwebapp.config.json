@@ -1,0 +1,37 @@
+{
+  "platform": {
+    "apiRuntime": "node:16"
+  },
+  "routes": [
+    {
+      "route": "/signinsignup.html",
+      "rewrite": "/signinsignup.html",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/signup.html",
+      "rewrite": "/signup.html",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/external/external.css",
+      "rewrite": "/external/external.css",
+      "allowedRoles": ["anonymous"]
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": [
+      "/*.{png,jpg,jpeg,gif,bmp}",
+      "/static/media/*.{png,jpg,jpeg,gif,bmp}",
+      "/static/css/*"
+    ]
+  },
+  "mimeTypes": {
+    ".json": "text/json"
+  },
+  "globalHeaders": {
+    "Access-Control-Allow-Origin": "https://horizenag.b2clogin.com",
+    "Access-Control-Allow-Methods": "POST, GET, OPTIONS"
+  }
+}

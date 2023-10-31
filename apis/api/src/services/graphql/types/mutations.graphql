@@ -1,0 +1,11 @@
+type Mutation {
+  createTagCategory(input: CreateTagCategoryInput): CreateTagCategoryResult!
+
+  createRetailerProduct(
+    input: CreateRetailerProductInput
+  ): CreateRetailerProductResult!
+
+  updateRetailerProduct(
+    input: UpdateRetailerProductInput
+  ): UpdateRetailerProductResult!
+}

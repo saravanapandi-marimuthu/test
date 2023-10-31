@@ -1,0 +1,76 @@
+type Manufacturer {
+  id: String!
+  companyName: String!
+  companyTypeId: Int!
+  roles: [UserRole]
+  extendedProperties: JSON
+  companyType: CompanyType
+  homepage: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  products: [Product]
+  productsCount: Int
+}
+
+type Product {
+  id: Int!
+  externalId: Int!
+  productName: String!
+  labelDAT: String
+  logoId: Int
+  manId: Int
+  EPA: String
+  manufacturerName: String
+  commonName: String
+  hasIcon: Boolean
+  iconUrl: String
+  iconUI: String
+  gaPageParam: String
+  isUs: Boolean
+  isCanada: Boolean
+  isCoPack: Boolean
+  manufacturerId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  manufacturer: Manufacturer
+}
+
+type RetailerProduct {
+  id: Int!
+  companyId: String!
+  productName: String!
+  productSku: String!
+  productImageUrl: String
+  productBrochureUrl: String
+  label: String
+  notes: String
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  company: Company
+  retailerProductComponents: [RetailerProductComponent]
+  retailerProductTags: [RetailerProductTag]
+}
+
+type RetailerProductComponent {
+  id: Int!
+  retailerProductId: Int!
+  unitPrice: Float!
+  unitOfMeasurementId: Int!
+  measurementValue: Float!
+  productId: Int!
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  unitOfMeasurement: UnitOfMeasurement
+  product: Product
+}
+
+type RetailerProductTag {
+  retailerProductId: Int!
+  tagId: Int!
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  tag: Tag
+}

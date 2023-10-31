@@ -1,0 +1,33 @@
+[
+  {
+    "companyName": "Imperial Analytics",
+    "serviceTypes": ["ServiceProvider"],
+    "addresses": [
+      {
+        "addressType": "Billing",
+        "address": {
+          "addressLine1": "1703 Giuntoli Ln",
+          "addressLine2": "Suite B",
+          "city": "Arcata",
+          "country": "USA",
+          "postalCode": "95521",
+          "state": "California"
+        }
+      }
+    ],
+    "contactPerson": {
+      "email": "lab@imperialanalytics.com",
+      "firstName": "Contact",
+      "lastName": "Contact",
+      "middleName": null
+    },
+    "phoneNumbers": [
+      {
+        "phoneNumberType": "Work",
+        "phoneNumber": {
+          "mainNumber": "+17076304173"
+        }
+      }
+    ]
+  }
+]

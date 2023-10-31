@@ -1,0 +1,25 @@
+{
+  "name": "@horizen/shared",
+  "version": "1.0.0",
+  "description": "Shared package for APIs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "compile": "tsc",
+    "build": "pwd && tsc && cp ./package.json dist/ && cd dist && npm pack",
+    "test": "jest"
+  },
+  "author": "Horizen",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "@types/node": "^20.1.4",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@azure/storage-queue": "^12.13.0",
+    "@sendgrid/mail": "^7.7.0"
+  }
+}

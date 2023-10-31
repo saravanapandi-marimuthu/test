@@ -1,0 +1,134 @@
+query Companies($input: GetCompaniesInput!) {
+  companies(input: $input) {
+    items {
+      id
+      name
+      shortName
+      services
+      servicesInfo {
+        value
+        name
+        colorIndex
+      }
+      companyPhoneNumbers {
+        phoneNumberType
+        phoneNumberTypeName
+        phoneNumber {
+          mainNumber
+          extension
+        }
+      }
+      companyAddresses {
+        addressType
+        addressTypeName
+        address {
+          addressLine1
+          addressLine2
+          city
+          country
+          postalCode
+          state
+          id
+        }
+      }
+      userRoles {
+        rolesInfo {
+          value
+          name
+          colorIndex
+        }
+        user {
+          email
+          firstName
+          lastName
+          middleName
+          userPhoneNumbers {
+            phoneNumberType
+            phoneNumber {
+              mainNumber
+              extension
+            }
+          }
+          userAddresses {
+            addressType
+            address {
+              addressLine1
+              addressLine2
+              city
+              country
+              postalCode
+              state
+            }
+          }
+        }
+      }
+    }
+    totalCount
+  }
+}
+
+query Company($input: GetCompanyInput!) {
+  company(input: $input) {
+    id
+    name
+    shortName
+    services
+    servicesInfo {
+      value
+      name
+      colorIndex
+    }
+    companyPhoneNumbers {
+      phoneNumberType
+      phoneNumberTypeName
+      phoneNumber {
+        mainNumber
+        extension
+      }
+    }
+    companyAddresses {
+      addressType
+      addressTypeName
+      address {
+        addressLine1
+        addressLine2
+        city
+        country
+        postalCode
+        state
+        id
+      }
+    }
+    userRoles {
+      rolesInfo {
+        value
+        name
+        colorIndex
+      }
+      user {
+        email
+        firstName
+        lastName
+        middleName
+        userPhoneNumbers {
+          phoneNumberType
+          phoneNumber {
+            mainNumber
+            extension
+          }
+        }
+        userAddresses {
+          addressType
+          address {
+            addressLine1
+            addressLine2
+            city
+            country
+            postalCode
+            state
+          }
+        }
+      }
+    }
+  }
+}

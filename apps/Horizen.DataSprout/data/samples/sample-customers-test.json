@@ -1,0 +1,350 @@
+[
+  {
+    "relatedCompanyName": "AgHub Midwest",
+    "companyRelationshipDirection": "RelatedToPrimary",
+    "companyRelationshipType": "Customer",
+    "company": {
+      "name": "Emily Smith",
+      "serviceType": "Account",
+      "addresses": [
+        {
+          "addressType": "Billing",
+          "address": {
+            "addressLine1": "789 Maple Street",
+            "addressLine2": null,
+            "city": "Greenfield",
+            "country": "USA",
+            "postalCode": "45123",
+            "state": "Ohio"
+          }
+        }
+      ],
+      "contactPerson": {
+        "email": "emily@harvestfields.com",
+        "firstName": "Emily",
+        "lastName": "Smith",
+        "middleName": "R"
+      }
+    },
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005551234"
+    },
+    "tagLinks": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Gold"
+      }
+    ]
+  },
+  {
+    "companyName": "Robert Johnson",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "456 Elm Road",
+        "addressLine2": null,
+        "city": "Hicksville",
+        "country": "USA",
+        "postalCode": "43526",
+        "state": "Ohio"
+      }
+    },
+    "contactPerson": {
+      "email": "robert@countrymeadows.com",
+      "firstName": "Robert",
+      "lastName": "Johnson",
+      "middleName": "T"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005559876"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  },
+  {
+    "companyName": "Jane Anderson",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "321 Willow Ave",
+        "addressLine2": null,
+        "city": "Bloomfield",
+        "country": "USA",
+        "postalCode": "07003",
+        "state": "New Jersey"
+      }
+    },
+    "contactPerson": {
+      "email": "jane@hillsidefarms.com",
+      "firstName": "Jane",
+      "lastName": "Anderson",
+      "middleName": "L"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005553210"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Bronze"
+      }
+    ]
+  },
+  {
+    "companyName": "William Clark",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "220 Birch Lane",
+        "addressLine2": null,
+        "city": "Sunnyvale",
+        "country": "USA",
+        "postalCode": "94086",
+        "state": "California"
+      }
+    },
+    "contactPerson": {
+      "email": "william@organicgreens.com",
+      "firstName": "William",
+      "lastName": "Clark",
+      "middleName": "S"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005557489"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  },
+  {
+    "companyName": "Mary Johnson",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "920 Pine Road",
+        "addressLine2": null,
+        "city": "Greenville",
+        "country": "USA",
+        "postalCode": "29601",
+        "state": "South Carolina"
+      }
+    },
+    "contactPerson": {
+      "email": "mary@freshfarm.com",
+      "firstName": "Mary",
+      "lastName": "Johnson",
+      "middleName": "E"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005558765"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Gold"
+      }
+    ]
+  },
+  {
+    "companyName": "Michael Baker",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "1404 Spruce Street",
+        "addressLine2": null,
+        "city": "Harrison",
+        "country": "USA",
+        "postalCode": "72601",
+        "state": "Arkansas"
+      }
+    },
+    "contactPerson": {
+      "email": "michael@valleyfarms.com",
+      "firstName": "Michael",
+      "lastName": "Baker",
+      "middleName": "D"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005551200"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Bronze"
+      }
+    ]
+  },
+  {
+    "companyName": "Sarah Lewis",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "1109 Birch St",
+        "addressLine2": null,
+        "city": "Elk Grove",
+        "country": "USA",
+        "postalCode": "95624",
+        "state": "California"
+      }
+    },
+    "contactPerson": {
+      "email": "sarah@happyvalley.com",
+      "firstName": "Sarah",
+      "lastName": "Lewis",
+      "middleName": "K"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005552524"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  },
+  {
+    "companyName": "David Allen",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "604 Cedar Ave",
+        "addressLine2": null,
+        "city": "Portsmouth",
+        "country": "USA",
+        "postalCode": "03801",
+        "state": "New Hampshire"
+      }
+    },
+    "contactPerson": {
+      "email": "david@prairieland.com",
+      "firstName": "David",
+      "lastName": "Allen",
+      "middleName": "W"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005554545"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Gold"
+      }
+    ]
+  },
+  {
+    "companyName": "Laura Williams",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "2700 Oak Lane",
+        "addressLine2": null,
+        "city": "Madison",
+        "country": "USA",
+        "postalCode": "53711",
+        "state": "Wisconsin"
+      }
+    },
+    "contactPerson": {
+      "email": "laura@meadowcreek.com",
+      "firstName": "Laura",
+      "lastName": "Williams",
+      "middleName": "C"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005557676"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Bronze"
+      }
+    ]
+  },
+  {
+    "companyName": "Richard Wilson",
+    "extendedProperties": {
+      "test": "New customer onboarded"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "1300 Pine Ridge",
+        "addressLine2": null,
+        "city": "Pine Bluff",
+        "country": "USA",
+        "postalCode": "71601",
+        "state": "Arkansas"
+      }
+    },
+    "contactPerson": {
+      "email": "richard@blueskyfarms.com",
+      "firstName": "Richard",
+      "lastName": "Wilson",
+      "middleName": "O"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005558989"
+    },
+    "providerCompanyId": "GA67890",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  }
+]

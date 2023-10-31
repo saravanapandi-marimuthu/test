@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+/*
+  --bg-primary: theme('backgroundColor.gray.100');
+  --bg-primary-lighter: theme('backgroundColor.gray.50');
+  --bg-primary-darker: theme('backgroundColor.gray.800');
+  --bg-secondary: theme('backgroundColor.white');
+  --text-primary: theme('textColor.gray.900');
+  --text-secondary: theme('textColor.gray.700');
+  --border-color: theme('borderColor.gray.200');
+}
+
+.light-mode {
+  --bg-primary: theme('backgroundColor.gray.100');
+  --bg-primary-lighter: theme('backgroundColor.gray.50');
+  --bg-primary-darker: theme('backgroundColor.gray.800');
+  --bg-secondary: theme('backgroundColor.white');
+  --text-primary: theme('textColor.gray.900');
+  --text-secondary: theme('textColor.gray.700');
+  --border-color: theme('borderColor.gray.200');
+}
+
+.dark-mode {
+  --bg-primary: theme('backgroundColor.gray.900');
+  --bg-primary-lighter: theme('backgroundColor.gray.600');
+  --bg-primary-darker: theme('backgroundColor.gray.800');
+  --bg-secondary: theme('backgroundColor.gray.800');
+  --text-primary: theme('textColor.gray.100');
+  --text-secondary: theme('textColor.gray.300');
+  --border-color: theme('borderColor.gray.700');
+  */
+}
+
+.text-logo-color {
+  color: #5a36ff;
+}
+
+.icon-drop-shadow {
+  /*filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));*/
+  filter: drop-shadow(3px 5px 6px rgba(0, 0, 250, 0.4));
+  }
+
+/* button.css */
+
+.button {
+  @apply inline-flex items-center justify-center font-semibold uppercase rounded transition-all duration-200;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.button--primary {
+  @apply bg-white text-gray-800 border border-gray-400 rounded shadow hover:bg-gray-100;
+}
+
+.button--secondary {
+  @apply bg-white text-gray-800 border border-gray-400 hover:bg-gray-100;
+}
+
+/*
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Modify the width of the scrollbar */
+::-webkit-scrollbar {
+  width: 2px;
+  /* You can adjust this value to make it thinner or thicker */
+  height: 4px;
+  /* The height of the scrollbar track (optional) */
+}
+
+/* Customize the scrollbar track (the background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Customize the scrollbar thumb (the draggable handle) */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.custom-date-disabled-time {
+  .Mui-disabled {
+    color: rgb(226 226 226 / 65%) !important;
+  }
+}

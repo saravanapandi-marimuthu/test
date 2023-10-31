@@ -1,0 +1,35 @@
+namespace Horizen.Data.Domain.Accounts.Enums;
+
+public enum OtherCurrentLiability
+{
+    OtherCurrentLiabilities, // (default)
+    DirectDepositPayable,
+    LineOfCredit,
+    LoanPayable,
+    GlobalTaxPayable,
+    GlobalTaxSuspense,
+    PayrollClearing,
+    PayrollTaxPayable,
+    PrepaidExpensesPayable,
+    RentsInTrustLiability,
+    TrustAccountsLiabilities,
+    FederalIncomeTaxPayable,
+    InsurancePayable,
+    SalesTaxPayable,
+    StateLocalIncomeTaxPayable,
+    AccruedLiabilities,
+    CurrentLiabilities,
+    CurrentPortionEmployeeBenefitsObligations,
+    CurrentPortionOfObligationsUnderFinanceLeases,
+    CurrentTaxLiability,
+    DividendsPayable,
+    DutiesAndTaxes,
+    InterestPayable,
+    ProvisionForWarrantyObligations,
+    ProvisionsCurrentLiabilities,
+    ShortTermBorrowings,
+    SocialSecurityAgencies,
+    StaffAndRelatedLiabilityAccounts,
+    SundryDebtorsAndCreditors,
+    TradeAndOtherPayable,
+}

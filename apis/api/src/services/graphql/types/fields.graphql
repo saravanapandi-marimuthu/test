@@ -1,0 +1,204 @@
+# Types for the Field Service
+enum BillingSplitValueType {
+  PERCENTAGE
+  FIXED_AMOUNT
+  RATIO
+}
+
+type GrowingSeason {
+  id: Int!
+  startDate: DateTime
+  endDate: DateTime
+  plantingDate: DateTime
+  harvestDate: DateTime
+  cropYear: Int
+  cropId: Int
+  notes: String
+  crop: Tag
+  yieldGoal: Float
+  yieldGoalMeasurement: UnitOfMeasurement
+  yield: Float
+  yieldMeasurement: UnitOfMeasurement
+}
+
+type EnterpriseItem {
+  id: Int!
+  companyId: String!
+  itemId: Int!
+  notes: String
+  extendedProperties: JSON
+  itemType: Tag
+  billingSplitGroup: BillingSplitGroup
+}
+
+type BillingSplitGroup {
+  id: Int!
+  splitGroupName: String
+  defaultSplitItemId: Int
+  notes: String
+  extendedProperties: JSON
+  defaultSplitItem: BillingSplitItem
+  splitItems: [BillingSplitItem]
+  billingSplitGroupAccounts: [BillingSplitGroupAccount]
+}
+
+type BillingSplitGroupAccount {
+  id: Int!
+  accountCompanyId: String
+  splitGroupId: Int
+  splitGroup: BillingSplitGroup
+  accountCompany: CompanyBasicInfo
+}
+
+type BillingSplitItem {
+  id: Int!
+  splitGroupId: Int!
+  parentSplitItemId: Int
+  splitTier: Tag
+  accountSplitAllocations: [BillingAccountSplitAllocation]
+}
+
+type BillingAccountSplitAllocation {
+  splitGroupAccountId: Int!
+  splitItemId: Int!
+  splitValue: Float!
+  splitValueType: BillingSplitValueType!
+}
+
+type FieldInfo {
+  id: Int!
+  fieldName: String
+  company: Company
+  notes: String
+  active: Boolean
+  geoLocation: GeoLocation
+  plssLocation: String
+  plssLocationState: String
+  fieldVersions: [FieldVersion]
+  fieldTags: [FieldTag]
+}
+
+type FieldTag {
+  fieldId: Int!
+  tagId: Int!
+  tag: Tag
+}
+
+type FieldVersion {
+  id: Int!
+  startDate: DateTime
+  endDate: DateTime
+  fieldId: Int!
+  active: Boolean
+  notes: String
+  estimatedArea: Float
+  calculatedArea: Float
+  fieldVersionTags: [FieldVersionTag]
+  fieldLayers: [FieldLayer]
+}
+
+type FieldVersionTag {
+  fieldVersionId: Int!
+  tagId: Int!
+  tag: Tag
+}
+
+type FieldLayer {
+  id: Int!
+  fieldVersionId: Int!
+  manuallyGenerated: Boolean
+  layerType: Tag
+  layerName: String
+  layerDescription: String
+  layerFileName: String
+  geoJsonData: JSON
+  area: Float
+  notes: String
+  extendedProperties: JSON
+  geoLocation: GeoLocation
+  fieldLayerZones: [FieldLayerZone]
+}
+
+type FieldLayerZone {
+  id: Int!
+  fieldLayerId: Int!
+  zoneName: String!
+  zoneDescription: String
+  zoneColor: String
+  zoneFileName: String
+  geoJsonData: JSON
+  area: Float
+  notes: String
+  extendedProperties: JSON
+  geoLocation: GeoLocation
+}
+
+# Input Types
+input GetFieldsForCompanyInput {
+  companyId: String!
+}
+
+input GetFieldInput {
+  fieldId: Int!
+  providerCompanyId: String!
+}
+
+input GrowingSeasonInput {
+  startDate: DateTime
+  endDate: DateTime
+  plantingDate: DateTime
+  harvestDate: DateTime
+  cropYear: Int
+  cropId: Int
+  notes: String
+  yieldGoal: Float
+  yieldGoalMeasurementId: Int
+  yield: Float
+  yieldMeasurementId: Int
+}
+
+input GeoLocationInput {
+  latitude: Float
+  longitude: Float
+  altitude: Float
+  accuracy: Float
+  source: String
+  notes: String
+}
+
+input BillingSplitInput {
+  accountCompanyId: String
+  splitPercentage: Float
+  splitTier: TagLinkInput
+  retailerProductId: Int
+}
+
+input CreateFieldInput {
+  fieldName: String!
+  enterpriseCompanyId: String!
+  notes: String
+  plssLocation: String
+  plssLocationState: String
+  gpsCoordinates: GeoLocationInput
+  fieldTags: [TagLinkInput]
+  estimatedArea: Float
+  fieldBoundaryData: JSON
+  billingSplitGroupName: String
+  billingSplits: [BillingSplitInput]
+}
+
+# Results
+type EnterpriseField {
+  enterpriseItem: EnterpriseItem
+  field: FieldInfo
+}
+# Queries and Mutations
+
+extend type Query {
+  getFieldsForCompany(input: GetFieldsForCompanyInput): [EnterpriseField]
+  getField(input: GetFieldInput): EnterpriseField
+}
+
+extend type Mutation {
+  createField(input: CreateFieldInput): EnterpriseField
+}

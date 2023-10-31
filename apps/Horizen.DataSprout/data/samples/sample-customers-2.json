@@ -1,0 +1,295 @@
+[
+  {
+    "companyName": "Green Acres Farm Management",
+    "customerTags": [{ "customer": "HighValued" }, { "customer": "LongTerm" }],
+    "extendedProperties": {
+      "test": "This is a test"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "1204 Oak Drive",
+        "addressLine2": null,
+        "city": "Springfield",
+        "country": "USA",
+        "postalCode": "62701",
+        "state": "Illinois"
+      }
+    },
+    "contactPerson": {
+      "email": "john@greenacres.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "middleName": "H"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18001234567"
+    },
+    "providerCompanyId": "GA12345",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  },
+  {
+    "companyName": "Meadowbrook Farms",
+    "customerTags": [{ "customer": "New" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "356 Meadow Lane",
+        "addressLine2": null,
+        "city": "Peoria",
+        "country": "USA",
+        "postalCode": "61602",
+        "state": "Illinois"
+      }
+    },
+    "contactPerson": {
+      "email": "jane@meadowbrook.com",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "middleName": "A"
+    },
+    "phoneNumber": {
+      "phoneNumber": "+18002345678",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "MF12345",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Gold"
+      }
+    ]
+  },
+  {
+    "companyName": "Sunnyfield Farmers",
+    "customerTags": [{ "customer": "HighValued" }, { "customer": "LongTerm" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "789 Sunshine Ave",
+        "addressLine2": null,
+        "city": "Chicago",
+        "country": "USA",
+        "postalCode": "60601",
+        "state": "Illinois"
+      }
+    },
+    "contactPerson": {
+      "email": "mark@sunnyfield.com",
+      "firstName": "Mark",
+      "lastName": "Brown",
+      "middleName": "C"
+    },
+    "phoneNumber": {
+      "phoneNumber": "+18003456789",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "SF12345",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  },
+  {
+    "companyName": "James Thompson - Proprietor",
+    "customerTags": [{ "customer": "New" }, { "customer": "HighValued" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "123 Maple Street",
+        "addressLine2": null,
+        "city": "Rockford",
+        "country": "USA",
+        "postalCode": "61101",
+        "state": "Illinois"
+      }
+    },
+    "contactPerson": {
+      "email": "james@thompsonfarm.com",
+      "firstName": "James",
+      "lastName": "Thompson",
+      "middleName": "E"
+    },
+    "phoneNumber": {
+      "phoneNumber": "+18004567890",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "JT12345",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Silver"
+      }
+    ]
+  },
+  {
+    "companyName": "Riverdale Farming Co.",
+    "customerTags": [{ "customer": "LongTerm" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "456 Riverside Dr",
+        "addressLine2": null,
+        "city": "Joliet",
+        "country": "USA",
+        "postalCode": "60431",
+        "state": "Illinois"
+      }
+    },
+    "contactPerson": {
+      "email": "lisa@riverdale.com",
+      "firstName": "Lisa",
+      "lastName": "White",
+      "middleName": "G"
+    },
+    "phoneNumber": {
+      "phoneNumber": "+18005678901",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "RF12345",
+    "tags": [
+      {
+        "tagCategoryName": "Customer Level",
+        "tagName": "Platinum"
+      }
+    ]
+  },
+  {
+    "companyName": "Brightview Farm Management",
+    "customerTags": [{ "customer": "New" }, { "customer": "HighValued" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "789 Hilltop Street",
+        "addressLine2": null,
+        "city": "Naperville",
+        "country": "USA",
+        "postalCode": "60540",
+        "state": "Illinois"
+      }
+    },
+    "contactPerson": {
+      "email": "robert@brightview.com",
+      "firstName": "Robert",
+      "lastName": "Black",
+      "middleName": "I"
+    },
+    "phoneNumber": {
+      "phoneNumber": "+18006789012",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "BF12345"
+  },
+  {
+    "companyName": "Emerald Grains",
+    "customerTags": [{ "customer": "HighValued" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "321 Green Rd",
+        "addressLine2": null,
+        "city": "Aurora",
+        "country": "USA",
+        "postalCode": "60502",
+        "state": "Illinois"
+      }
+    },
+    "contactPerson": {
+      "email": "susan@emeraldgrains.com",
+      "firstName": "Susan",
+      "lastName": "Green",
+      "middleName": "K"
+    },
+    "phoneNumber": {
+      "phoneNumber": "+18007890123",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "EG12345"
+  },
+  {
+    "companyName": "Oliver Peterson - Proprietor",
+    "customerTags": [{ "customer": "LongTerm" }, { "customer": "HighValued" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "456 Birch Avenue",
+        "addressLine2": null,
+        "city": "Elgin",
+        "country": "USA",
+        "postalCode": "60120",
+        "state": "Illinois"
+      }
+    },
+    "contactPerson": {
+      "email": "oliver@petersonfarm.com",
+      "firstName": "Oliver",
+      "lastName": "Peterson",
+      "middleName": "M"
+    },
+    "phoneNumber": {
+      "phoneNumber": "+18008901234",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "OP12345"
+  },
+  {
+    "companyName": "AgriCo Farm Management",
+    "customerTags": [{ "customer": "HighValued" }, { "customer": "LongTerm" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "123 Farm Lane",
+        "addressLine2": "",
+        "city": "Middletown",
+        "country": "USA",
+        "postalCode": "78654",
+        "state": "Kentucky"
+      }
+    },
+    "contactPerson": {
+      "email": "john@agricofarm.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "middleName": "A"
+    },
+    "phoneNumber": {
+      "phoneNumber": "5021234567",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "PRV001"
+  },
+  {
+    "companyName": "Golden Grains Co.",
+    "customerTags": [{ "customer": "HighValued" }, { "customer": "LongTerm" }],
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "8905 Sunset Blvd",
+        "addressLine2": null,
+        "city": "Hollywood",
+        "country": "USA",
+        "postalCode": "90028",
+        "state": "California"
+      }
+    },
+    "contactPerson": {
+      "email": "jane@goldengrains.com",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "middleName": null
+    },
+    "phoneNumber": {
+      "phoneNumber": "+13105550152",
+      "phoneNumberType": "Work"
+    },
+    "providerCompanyId": "GGC002"
+  }
+]

@@ -1,0 +1,7 @@
+.searchBoxWrapper {
+    position: absolute;
+    top: 100px;  /* Adjust as needed */
+    right: 100px;  /* Adjust as needed */
+    z-index: 99999;
+    boder: '1 px solid red'
+  }

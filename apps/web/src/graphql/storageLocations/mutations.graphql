@@ -1,0 +1,15 @@
+mutation CreateStorageLocation($input: CreateStorageLocationInput!) {
+  createStorageLocation(input: $input) {
+    storageLocation {
+      id
+    }
+  }
+}
+
+mutation UpdateStorageLocation($input: UpdateStorageLocationInput!) {
+  updateStorageLocation(input: $input) {
+    storageLocation {
+      id
+    }
+  }
+}

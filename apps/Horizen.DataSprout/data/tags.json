@@ -1,0 +1,491 @@
+[
+  {
+    "name": "Enterprise Item Type",
+    "colorIndex": 0,
+    "sortOrder": 0,
+    "tags": [
+      {
+        "name": "Field",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "ShipTo",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Tank",
+        "colorIndex": 2,
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "name": "Customer Level",
+    "colorIndex": 1,
+    "sortOrder": 1,
+    "tags": [
+      {
+        "name": "Platinum",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Gold",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Silver",
+        "colorIndex": 2,
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "name": "Crop Year",
+    "colorIndex": 2,
+    "sortOrder": 2,
+    "tags": [
+      {
+        "name": "2020",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "2021",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "2022",
+        "colorIndex": 2,
+        "sortOrder": 2
+      },
+      {
+        "name": "2023",
+        "colorIndex": 3,
+        "sortOrder": 3
+      },
+      {
+        "name": "2024",
+        "colorIndex": 4,
+        "sortOrder": 4
+      },
+      {
+        "name": "2025",
+        "colorIndex": 5,
+        "sortOrder": 5
+      }
+    ]
+  },
+  {
+    "name": "Crop",
+    "colorIndex": 3,
+    "sortOrder": 3,
+    "tags": [
+      {
+        "name": "Corn",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Soybeans",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Wheat",
+        "colorIndex": 2,
+        "sortOrder": 2
+      },
+      {
+        "name": "Cotton",
+        "colorIndex": 3,
+        "sortOrder": 3
+      },
+      {
+        "name": "Hey",
+        "colorIndex": 4,
+        "sortOrder": 4
+      },
+      {
+        "name": "Rice",
+        "colorIndex": 5,
+        "sortOrder": 5
+      },
+      {
+        "name": "Barley",
+        "colorIndex": 6,
+        "sortOrder": 6
+      },
+      {
+        "name": "Sorghum",
+        "colorIndex": 7,
+        "sortOrder": 7
+      },
+      {
+        "name": "Oats",
+        "colorIndex": 8,
+        "sortOrder": 8
+      },
+      {
+        "name": "Peanuts",
+        "colorIndex": 9,
+        "sortOrder": 9
+      }
+    ]
+  },
+  {
+    "name": "Crop Type",
+    "colorIndex": 4,
+    "sortOrder": 4,
+    "tags": [
+      {
+        "name": "Conventional",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "GMO",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Organic",
+        "colorIndex": 2,
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "name": "Billing Split Tier 1",
+    "colorIndex": 5,
+    "sortOrder": 5,
+    "tags": [
+      {
+        "name": "Enterprise Item Type",
+        "colorIndex": 0,
+        "sortOrder": 0
+      }
+    ]
+  },
+  {
+    "name": "Billing Split Tier 2",
+    "colorIndex": 6,
+    "sortOrder": 6,
+    "tags": [
+      {
+        "name": "Products",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Services",
+        "colorIndex": 1,
+        "sortOrder": 1
+      }
+    ]
+  },
+  {
+    "name": "Billing Split Tier 3",
+    "colorIndex": 7,
+    "sortOrder": 7,
+    "tags": [
+      {
+        "name": "Products:Chemicals",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+
+      {
+        "name": "Products:Fertilizer",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Products:Seed",
+        "colorIndex": 2,
+        "sortOrder": 2
+      },
+      {
+        "name": "Products:Fuel",
+        "colorIndex": 3,
+        "sortOrder": 3
+      },
+      {
+        "name": "Products:Other",
+        "colorIndex": 4,
+        "sortOrder": 4
+      },
+      {
+        "name": "Services:Application",
+        "colorIndex": 5,
+        "sortOrder": 5
+      },
+      {
+        "name": "Services:SoilSampling",
+        "colorIndex": 6,
+        "sortOrder": 6
+      },
+      {
+        "name": "Services:Scouting",
+        "colorIndex": 7,
+        "sortOrder": 7
+      },
+      {
+        "name": "Services:Delivery",
+        "colorIndex": 8,
+        "sortOrder": 8
+      },
+      {
+        "name": "Services:ArialImagery",
+        "colorIndex": 9,
+        "sortOrder": 9
+      },
+      {
+        "name": "Services:Other",
+        "colorIndex": 10,
+        "sortOrder": 10
+      }
+    ]
+  },
+  {
+    "name": "Billing Split Tier 4",
+    "colorIndex": 8,
+    "sortOrder": 8,
+    "tags": [
+      {
+        "name": "Products",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Services",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Other",
+        "colorIndex": 2,
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "name": "Product Type",
+    "colorIndex": 9,
+    "sortOrder": 9,
+    "tags": [
+      {
+        "name": "Chemical",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Fertilizer",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Seed",
+        "colorIndex": 2,
+        "sortOrder": 2
+      },
+      {
+        "name": "Equipment",
+        "colorIndex": 3,
+        "sortOrder": 3
+      },
+      {
+        "name": "Mineral",
+        "colorIndex": 4,
+        "sortOrder": 4
+      },
+      {
+        "name": "Other",
+        "colorIndex": 5,
+        "sortOrder": 5
+      }
+    ]
+  },
+  {
+    "name": "Vendor Type",
+    "colorIndex": 12,
+    "sortOrder": 12,
+    "tags": [
+      {
+        "name": "Chemical",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Fertilizer",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Seed",
+        "colorIndex": 2,
+        "sortOrder": 2
+      },
+      {
+        "name": "Equipment",
+        "colorIndex": 3,
+        "sortOrder": 3
+      },
+      {
+        "name": "Mineral",
+        "colorIndex": 4,
+        "sortOrder": 4
+      },
+      {
+        "name": "Other",
+        "colorIndex": 5,
+        "sortOrder": 5
+      }
+    ]
+  },
+  {
+    "name": "Storage Location Types",
+    "colorIndex": 13,
+    "sortOrder": 13,
+    "tags": [
+      {
+        "name": "Warehouse Zone",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Storage Aisle",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Storage Rack",
+        "colorIndex": 2,
+        "sortOrder": 2
+      },
+      {
+        "name": "Storage Bay",
+        "colorIndex": 3,
+        "sortOrder": 3
+      },
+      {
+        "name": "Storage Shelf",
+        "colorIndex": 4,
+        "sortOrder": 4
+      },
+      {
+        "name": "Storage Container",
+        "colorIndex": 5,
+        "sortOrder": 5
+      }
+    ]
+  },
+  {
+    "name": "Nutrient",
+    "colorIndex": 14,
+    "sortOrder": 14,
+    "tags": [
+      {
+        "name": "Nitrogen (N)",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Phosphorus (P2O5)",
+        "colorIndex": 1,
+        "sortOrder": 1
+      },
+      {
+        "name": "Potassium (K20)",
+        "colorIndex": 2,
+        "sortOrder": 2
+      },
+      {
+        "name": "Sulfur (S)",
+        "colorIndex": 3,
+        "sortOrder": 3
+      },
+      {
+        "name": "Calcium carbonate equivalent (CCE)",
+        "colorIndex": 4,
+        "sortOrder": 4
+      },
+      {
+        "name": "Zinc (Zn)",
+        "colorIndex": 5,
+        "sortOrder": 5
+      },
+      {
+        "name": "Boron (B)",
+        "colorIndex": 6,
+        "sortOrder": 6
+      },
+      {
+        "name": "Magnesium (Mg)",
+        "colorIndex": 7,
+        "sortOrder": 7
+      },
+      {
+        "name": "Metabolizable protein (MP)",
+        "colorIndex": 8,
+        "sortOrder": 8
+      },
+      {
+        "name": "Sulfate (S04)",
+        "colorIndex": 9,
+        "sortOrder": 9
+      },
+      {
+        "name": "Iron (Fe)",
+        "colorIndex": 10,
+        "sortOrder": 10
+      },
+      {
+        "name": "Copper (Cu)",
+        "colorIndex": 11,
+        "sortOrder": 11
+      },
+      {
+        "name": "Molybdenum (Mo)",
+        "colorIndex": 12,
+        "sortOrder": 12
+      },
+      {
+        "name": "Chlorine (Cl)",
+        "colorIndex": 13,
+        "sortOrder": 13
+      },
+      {
+        "name": "Calcium (Ca)",
+        "colorIndex": 14,
+        "sortOrder": 14
+      },
+      {
+        "name": "Gypsum (CaSO4)",
+        "colorIndex": 0,
+        "sortOrder": 15
+      }
+    ]
+  },
+  {
+    "name": "Subsidiary Type",
+    "colorIndex": 0,
+    "sortOrder": 14,
+    "tags": [
+      {
+        "name": "Full Service Retailer",
+        "colorIndex": 0,
+        "sortOrder": 0
+      },
+      {
+        "name": "Fertilizer Hub",
+        "colorIndex": 1,
+        "sortOrder": 1
+      }
+    ]
+  }
+]

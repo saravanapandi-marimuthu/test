@@ -1,0 +1,58 @@
+query Warehouses($input: GetWarehousesInput!) {
+  warehouses(input: $input) {
+    items {
+      id
+      name
+      notes
+      warehousePhoneNumbers {
+        phoneNumberType
+        phoneNumberTypeName
+        phoneNumber {
+          mainNumber
+          extension
+        }
+      }
+      warehouseAddresses {
+        addressType
+        addressTypeName
+        address {
+          addressLine1
+          addressLine2
+          city
+          state
+          postalCode
+          country
+        }
+      }
+    }
+    totalCount
+  }
+}
+
+query Warehouse($input: GetWarehouseInput!) {
+  warehouse(input: $input) {
+    id
+    name
+    notes
+    warehousePhoneNumbers {
+      phoneNumberType
+      phoneNumberTypeName
+      phoneNumber {
+        mainNumber
+        extension
+      }
+    }
+    warehouseAddresses {
+      addressType
+      addressTypeName
+      address {
+        addressLine1
+        addressLine2
+        city
+        state
+        postalCode
+        country
+      }
+    }
+  }
+}

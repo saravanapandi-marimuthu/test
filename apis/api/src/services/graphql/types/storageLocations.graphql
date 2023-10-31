@@ -1,0 +1,112 @@
+input CreateStorageLocationInput {
+  warehouseId: Int!
+  name: String!
+  description: String
+  identifier: String
+  barcode: String
+  parentId: Int
+  storageTypeId: Int!
+}
+
+input UpdateStorageLocationInput {
+  id: Int!
+  warehouseId: Int!
+  name: String!
+  description: String
+  identifier: String
+  barcode: String
+  parentId: Int
+  storageTypeId: Int!
+}
+
+enum DeleteStorageLocationError {
+  INVALID_STORAGE_LOCATION_ID
+  UNKNOWN_ERROR
+}
+
+input DeleteStorageLocationInput {
+  storageLocationId: Int
+}
+
+type StorageLocation {
+  id: Int!
+  warehouseId: Int
+  storageTypeId: Int
+  parentId: Int
+  identifier: String
+  barcode: String
+  name: String
+  description: String
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  warehouse: Warehouse
+  storageType: Tag
+  children: [StorageLocation]
+  parent: StorageLocation
+}
+
+# Result Types
+type GetStorageLocationsResult {
+  storageLocations: [StorageLocation!]!
+  totalCount: Int!
+}
+
+type GetStorageLocationResult {
+  storageLocation: StorageLocation
+}
+
+type CreateStorageLocationResult {
+  success: Boolean!
+  storageLocationId: Int
+}
+
+type UpdateStorageLocationResult {
+  success: Boolean!
+  storageLocationId: Int
+}
+
+enum UpdateStorageLocationError {
+  INVALID_STORAGE_LOCATION_ID
+  UNKNOWN_ERROR
+}
+
+type UpdateStorageLocationResult {
+  storageLocationId: Int
+  error: UpdateStorageLocationError
+}
+
+type DeleteStorageLocationResult {
+  success: Boolean
+  error: DeleteStorageLocationError
+}
+
+# Queries
+type Query {
+  getStorageLocations(
+    warehouseId: Int
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+    filters: [FilterInput]
+    tagFilters: [TagFilterInput]
+  ): GetStorageLocationsResult!
+
+  getStorageLocationById(id: Int): StorageLocation
+}
+
+# Mutations
+extend type Mutation {
+  createStorageLocation(
+    input: CreateStorageLocationInput
+  ): CreateStorageLocationResult!
+
+  updateStorageLocation(
+    input: UpdateStorageLocationInput
+  ): UpdateStorageLocationResult!
+
+  deleteStorageLocation(
+    input: DeleteStorageLocationInput!
+  ): DeleteStorageLocationResult!
+}

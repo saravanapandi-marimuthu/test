@@ -1,0 +1,40 @@
+type NutrientRemovalRate {
+  id: Int!
+  companyId: String!
+  cropId: Int
+  yearId: Int
+  nutrientId: Int
+  isDryMatter: Boolean!
+  isSilage: Boolean!
+  waterPercentage: Float!
+  removalRateValue: Float
+  removalRateUnitId: Int
+  extendedProperties: JSON
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  crop: Tag
+  year: Tag
+  nutrient: Tag
+  removalRateUnit: UnitOfMeasurement
+}
+
+type GetNutrientRemovalsRateResult {
+  nutrientRemovalRates: [NutrientRemovalRate!]!
+  totalCount: Int!
+}
+
+# Query
+type Query {
+  getNutrientRemovalRate(
+    nutrientRemovalRateId: Int!
+  ): NutrientRemovalRate
+
+  getNutrientRemovalRates(
+    companyId: String!
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+  ): GetNutrientRemovalsRateResult!
+}

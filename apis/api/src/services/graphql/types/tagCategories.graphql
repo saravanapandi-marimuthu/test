@@ -1,0 +1,77 @@
+#Base Tag Category Type
+type TagCategory {
+  id: Int
+  tagCategoryName: String!
+  color: String
+  colorIndex: Int
+  icon: String
+  description: String
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  tags: [Tag]
+}
+
+# ========= Query Types ========= #
+type GetTagCategoriesResult {
+  tagCategories: [TagCategory]
+  totalCount: Int!
+}
+
+type GetTagCategoryResult {
+  tagCategory: TagCategory
+}
+
+extend type Query {
+  getTagCategories(
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+    filters: [FilterInput]
+  ): GetTagCategoriesResult!
+
+  getTagCategory(tagCategoryName: String): GetTagCategoryResult!
+}
+# ================================ #
+
+# ========= Mutation Types ======= #
+input UpdateTagCategoryInput {
+  tagCategoryName: String!
+  updatedColor: String
+  updatedColorIndex: Int
+}
+
+enum UpdateTagCategoryError {
+  TAG_CATEGORY_NOT_FOUND
+  UNKNOWN_ERROR
+}
+
+type UpdateTagCategoryResult {
+  tagCategory: TagCategory
+  error: UpdateTagCategoryError
+}
+
+input CreateTagCategoryInput {
+  tagCategoryName: String!
+  color: String
+  colorIndex: Int
+  icon: String
+  description: String!
+}
+
+enum CreateTagCategoryError {
+  TAG_CATEGORY_ALREADY_EXISTS
+  UNKNOWN_ERROR
+}
+
+type CreateTagCategoryResult {
+  tagCategory: TagCategory
+  error: CreateTagCategoryError
+}
+
+extend type Mutation {
+  updateTagCategory(input: UpdateTagCategoryInput!): UpdateTagCategoryResult!
+  createTagCategory(input: CreateTagCategoryInput!): CreateTagCategoryResult!
+}
+# ================================ #

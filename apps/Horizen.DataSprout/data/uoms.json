@@ -1,0 +1,201 @@
+[
+  {
+    "unitName": "ea",
+    "singularName": "item",
+    "pluralName": "items",
+    "unitOfMeasurementType": "Count",
+    "conversionFactor": 1,
+    "colorIndex": 0
+  },
+  {
+    "unitName": "oz",
+    "singularName": "ounce",
+    "pluralName": "ounces",
+    "unitOfMeasurementType": "Weight",
+    "conversionFactor": 1,
+    "colorIndex": 1
+  },
+  {
+    "unitName": "lb",
+    "singularName": "pound",
+    "pluralName": "pounds",
+    "unitOfMeasurementType": "Weight",
+    "baseUnitName": "oz",
+    "conversionFactor": 16,
+    "colorIndex": 2
+  },
+  {
+    "unitName": "ton",
+    "singularName": "ton",
+    "pluralName": "tons",
+    "unitOfMeasurementType": "Weight",
+    "baseUnitName": "oz",
+    "conversionFactor": 32000,
+    "colorIndex": 3
+  },
+  {
+    "unitName": "fl oz",
+    "singularName": "fluid ounce",
+    "pluralName": "fluid ounces",
+    "unitOfMeasurementType": "Volume",
+    "conversionFactor": 1,
+    "colorIndex": 4
+  },
+  {
+    "unitName": "pt",
+    "singularName": "pint",
+    "pluralName": "pints",
+    "unitOfMeasurementType": "Volume",
+    "baseUnitName": "fl oz",
+    "conversionFactor": 16,
+    "colorIndex": 5
+  },
+  {
+    "unitName": "qt",
+    "singularName": "quart",
+    "pluralName": "quarts",
+    "unitOfMeasurementType": "Volume",
+    "baseUnitName": "fl oz",
+    "conversionFactor": 32,
+    "colorIndex": 6
+  },
+  {
+    "unitName": "gal",
+    "singularName": "gallon",
+    "pluralName": "gallons",
+    "unitOfMeasurementType": "Volume",
+    "baseUnitName": "fl oz",
+    "conversionFactor": 128,
+    "colorIndex": 7
+  },
+  {
+    "unitName": "lb/gal",
+    "singularName": "pound per gallon",
+    "pluralName": "pounds per gallon",
+    "unitOfMeasurementType": "Rate",
+    "numeratorMultiplier": 1,
+    "numeratorUnitName": "lb",
+    "denominatorMultiplier": 1,
+    "denominatorUnitName": "gal",
+    "numeratorUnitType": "Weight",
+    "denominatorUnitType": "Volume",
+    "colorIndex": 8
+  },
+  {
+    "unitName": "oz/qt",
+    "singularName": "ounce per quart",
+    "pluralName": "ounces per quart",
+    "unitOfMeasurementType": "Rate",
+    "numeratorMultiplier": 1,
+    "numeratorUnitName": "oz",
+    "denominatorMultiplier": 1,
+    "denominatorUnitName": "qt",
+    "numeratorUnitType": "Weight",
+    "denominatorUnitType": "Volume",
+    "colorIndex": 9
+  },
+  {
+    "unitName": "ton/pt",
+    "singularName": "ton per pint",
+    "pluralName": "tons per pint",
+    "unitOfMeasurementType": "Rate",
+    "numeratorMultiplier": 1,
+    "numeratorUnitName": "ton",
+    "denominatorMultiplier": 1,
+    "denominatorUnitName": "pt",
+    "numeratorUnitType": "Weight",
+    "denominatorUnitType": "Volume",
+    "colorIndex": 10
+  },
+  {
+    "unitName": "oz/gal",
+    "singularName": "ounce per gallon",
+    "pluralName": "ounces per gallon",
+    "unitOfMeasurementType": "Rate",
+    "numeratorMultiplier": 1,
+    "numeratorUnitName": "oz",
+    "denominatorMultiplier": 1,
+    "denominatorUnitName": "gal",
+    "numeratorUnitType": "Weight",
+    "denominatorUnitType": "Volume",
+    "colorIndex": 11
+  },
+  {
+    "unitName": "ton/qt",
+    "singularName": "ton per quart",
+    "pluralName": "tons per quart",
+    "unitOfMeasurementType": "Rate",
+    "numeratorMultiplier": 1,
+    "numeratorUnitName": "ton",
+    "denominatorMultiplier": 1,
+    "denominatorUnitName": "qt",
+    "numeratorUnitType": "Weight",
+    "denominatorUnitType": "Volume",
+    "colorIndex": 12
+  },
+  {
+    "unitName": "sq in",
+    "singularName": "square inch",
+    "pluralName": "square inches",
+    "unitOfMeasurementType": "Area",
+    "conversionFactor": 1,
+    "colorIndex": 13
+  },
+  {
+    "unitName": "sq ft",
+    "singularName": "square foot",
+    "pluralName": "square feet",
+    "unitOfMeasurementType": "Area",
+    "baseUnitName": "sq in",
+    "conversionFactor": 144,
+    "colorIndex": 14
+  },
+  {
+    "unitName": "acre",
+    "singularName": "acre",
+    "pluralName": "acres",
+    "unitOfMeasurementType": "Area",
+    "baseUnitName": "sq in",
+    "conversionFactor": 6272640,
+    "colorIndex": 0
+  },
+  {
+    "unitName": "lb/acre",
+    "singularName": "pound per acre",
+    "pluralName": "pounds per acre",
+    "unitOfMeasurementType": "Rate",
+    "numeratorMultiplier": 1,
+    "numeratorUnitName": "lb",
+    "denominatorMultiplier": 1,
+    "denominatorUnitName": "acre",
+    "numeratorUnitType": "Weight",
+    "denominatorUnitType": "Area",
+    "colorIndex": 1
+  },
+  {
+    "unitName": "oz/ sq ft",
+    "singularName": "ounce per square foot",
+    "pluralName": "ounces per square foot",
+    "unitOfMeasurementType": "Rate",
+    "numeratorMultiplier": 1,
+    "numeratorUnitName": "oz",
+    "denominatorMultiplier": 1,
+    "denominatorUnitName": "sq ft",
+    "numeratorUnitType": "Weight",
+    "denominatorUnitType": "Area",
+    "colorIndex": 2
+  },
+  {
+    "unitName": "gal/acre",
+    "singularName": "gallon per acre",
+    "pluralName": "gallons per acre",
+    "unitOfMeasurementType": "Rate",
+    "numeratorMultiplier": 1,
+    "numeratorUnitName": "gal",
+    "denominatorMultiplier": 1,
+    "denominatorUnitName": "acre",
+    "numeratorUnitType": "Volume",
+    "denominatorUnitType": "Area",
+    "colorIndex": 3
+  }
+]

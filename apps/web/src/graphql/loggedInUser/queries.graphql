@@ -1,0 +1,65 @@
+query UserInfo {
+  userInfo {
+    id
+    email
+    displayName
+    firstName
+    middleName
+    lastName
+    createdAt
+    selectedUserRoleId
+    selectedUserRole {
+      rolePermissions {
+        action
+        resource
+      }
+      rolesInfo {
+        value
+        name
+        colorIndex
+      }
+      companyId
+      company {
+        id
+        name
+      }
+    }
+    userAddresses {
+      addressId
+      addressType
+      address {
+        addressLine1
+        addressLine2
+        city
+        country
+        state
+        postalCode
+      }
+    }
+    userPhoneNumbers {
+      phoneNumberType
+      phoneNumber {
+        mainNumber
+        extension
+      }
+    }
+    userRoles {
+      id
+      rolesInfo {
+        value
+        name
+        colorIndex
+      }
+      companyId
+      company {
+        id
+        name
+      }
+    }
+    userSettings {
+      avatarFallbackUrl
+      avatarUrl
+      darkMode
+    }
+  }
+}

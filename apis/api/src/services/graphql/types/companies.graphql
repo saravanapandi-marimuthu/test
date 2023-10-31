@@ -1,0 +1,161 @@
+# Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+# Types & Enums
+scalar DateTime
+type CompanyBasicInfo {
+  id: String!
+  companyName: String!
+  companyTypeId: Int!
+}
+
+type Company {
+  id: String!
+  companyName: String!
+  companyShortName: String
+  companyTypeId: Int!
+  parentCompanyId: String
+  homepage: String
+  logoUrl: String
+  parentCompany: Company
+  childCompanies: [Company]
+  roles: [UserRole]
+  companyServiceAccounts: [CompanyServiceAccount]
+  addresses: [CompanyAddress]
+  phoneNumbers: [CompanyPhoneNumber]
+  companySaaSFeature: [CompanySaaSFeature]
+  createdAt: DateTime
+  updatedAt: DateTime
+  companyType: CompanyType
+  extendedProperties: JSON
+  companyNotes: String
+  companyTags: [CompanyTag]
+}
+
+type CompanyTag {
+  companyId: String!
+  tagId: Int!
+  createdAt: DateTime
+  updatedAt: DateTime
+  tag: Tag
+}
+
+type CompanySaaSFeature {
+  companyId: String!
+  featureId: Int!
+  enabled: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type CompanyType {
+  id: Int!
+  companyTypeName: String!
+  displayName: String
+  colorId: Int
+  color: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Companies {
+  company: [Company!]!
+  totalCount: Int!
+  usersCount: Int!
+}
+
+type CompanyServiceAccount {
+  id: String!
+  service: String!
+  companyId: String!
+  accessToken: String!
+  refreshToken: String
+  company: Company!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type CompanyAddress {
+  companyId: String!
+  addressId: Int!
+  addressType: AddressType!
+  createdAt: DateTime
+  updatedAt: DateTime
+  address: Address
+}
+
+type CompanyPhoneNumber {
+  companyId: String!
+  phoneNumberType: PhoneNumberType!
+  phoneNumber: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Customer {
+  companyId: String!
+  customerCompanyId: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  customerCompany: Company
+  extendedProperties: JSON
+  companyRelationshipTags: [CompanyRelationshipTag]
+}
+
+# Input Types
+input CreateCompanyInput {
+  companyName: String!
+  companyTypeName: String!
+  parentCompanyId: String
+  companyAddress: AddressInput
+  companyPhoneNumber: PhoneNumberInput
+  contactPerson: ContactPersonInput
+  companyExtendedProperties: JSON
+  companyTags: [TagLinkInput]
+  companyNotes: String
+}
+
+input GetSubsidiaryCompaniesTreeInput {
+  parentCompanyId: String!
+  treeDepth: Int
+  page: Int
+  perPage: Int
+  searchTerm: String
+  sort: String
+}
+# Result Types
+type GetCompaniesResult {
+  companies: [Company!]!
+  totalCount: Int!
+}
+
+# Queries
+type Query {
+  getAllCompanyTypes: [CompanyType!]!
+
+  getCompanyOrCreate: Company
+
+  getCompany(companyId: String, companyName: String): Company
+
+  getCompanies(
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+  ): GetCompaniesResult!
+
+  getSubsidiaryCompanies(
+    parentCompanyId: String!
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+  ): GetCompaniesResult!
+
+  getSubsidiaryCompaniesTree(
+    input: GetSubsidiaryCompaniesTreeInput
+  ): GetCompaniesResult!
+}
+
+# Mutations
+type Mutation {
+  createCompany(input: CreateCompanyInput!): Company!
+}

@@ -1,0 +1,23 @@
+mutation CreateRelatedCompany($input: CreateRelatedCompanyInput!) {
+  createRelatedCompany(input: $input) {
+    companyRelationship {
+      id
+      primaryCompanyId
+      relatedCompanyId
+      companyRelationshipType
+      companyRelationshipStatus
+    }
+  }
+}
+
+mutation LinkCompanies($input: LinkCompaniesInput!) {
+  linkCompanies(input: $input) {
+    companyRelationship {
+      id
+      primaryCompanyId
+      relatedCompanyId
+      companyRelationshipType
+      companyRelationshipStatus
+    }
+  }
+}

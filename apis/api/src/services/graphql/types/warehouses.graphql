@@ -1,0 +1,114 @@
+type Warehouse {
+  id: Int!
+  warehouseName: String
+  notes: String
+  address: Address
+  phoneNumber: String
+}
+
+# ========= Query Types ========= #
+input GetWarehousesForCompanyInput {
+  page: Int
+  perPage: Int
+  searchTerm: String
+  sort: String
+  filters: [FilterInput]
+  companyId: String!
+}
+
+enum GetWarehousesForCompanyError {
+  INVALID_COMPANY_ID
+  UNKNOWN_ERROR
+}
+
+type GetWarehousesForCompanyResult {
+  warehouses: [Warehouse]
+  totalCount: Int
+  error: GetWarehousesForCompanyError
+}
+
+# NOTE: The reason GetWarehouseInfo is separated despite being so similar to other types and inputs is because it will likely be expanded in the future to include more information, including inventory and assets
+input GetWarehouseInfoInput {
+  id: Int!
+  providerCompanyId: String!
+}
+
+enum GetWarehouseInfoError {
+  INVALID_WAREHOUSE_ID
+  WAREHOUSE_NOT_FOUND
+  UNKNOWN_ERROR
+}
+
+type GetWarehouseInfoResult {
+  warehouse: Warehouse
+  error: GetWarehouseInfoError
+}
+
+extend type Query {
+  getWarehousesForCompany(
+    input: GetWarehousesForCompanyInput!
+  ): GetWarehousesForCompanyResult!
+
+  getWarehouseInfo(input: GetWarehouseInfoInput!): GetWarehouseInfoResult!
+}
+# ================================ #
+
+# ========= Mutation Types ======= #
+input UpdateWarehouseInput {
+  id: Int!
+  providerCompanyId: String!
+  updatedName: String
+  updatedNotes: String
+  updatedAddress: AddressInput
+  updatedPhoneNumber: String
+}
+
+enum UpdateWarehouseError {
+  INVALID_WAREHOUSE_ID
+  UNKNOWN_ERROR
+}
+
+type UpdateWarehouseResult {
+  warehouse: Warehouse
+  error: UpdateWarehouseError
+}
+
+input CreateWarehouseInput {
+  companyId: String!
+  warehouseName: String!
+  notes: String
+  address: AddressInput!
+  phoneNumber: String!
+}
+
+enum CreateWarehouseError {
+  INVALID_COMPANY_ID
+  UNKNOWN_ERROR
+}
+
+type CreateWarehouseResult {
+  warehouse: Warehouse
+  error: CreateWarehouseError
+}
+
+input DeleteWarehousesInput {
+  providerCompanyId: String!
+  warehouseIds: [Int]!
+}
+
+enum DeleteWarehousesError {
+  INVALID_WAREHOUSE_ID
+  UNKNOWN_ERROR
+}
+
+type DeleteWarehousesResult {
+  success: Boolean
+  error: DeleteWarehousesError
+}
+
+extend type Mutation {
+  updateWarehouse(input: UpdateWarehouseInput!): UpdateWarehouseResult!
+  createWarehouse(input: CreateWarehouseInput!): CreateWarehouseResult!
+  deleteWarehouses(input: DeleteWarehousesInput!): DeleteWarehousesResult!
+}
+# ================================ #

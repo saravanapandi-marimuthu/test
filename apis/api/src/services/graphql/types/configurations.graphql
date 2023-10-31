@@ -1,0 +1,43 @@
+enum UnitOfMeasurementType {
+  VOLUME
+  WEIGHT
+  AREA
+  LENGTH
+  COUNT
+  RATE
+}
+
+type UnitOfMeasurement {
+  id: Int!
+  baseUnitId: Int
+  unitName: String!
+  singularName: String
+  pluralName: String
+  unitOfMeasurementType: UnitOfMeasurementType
+  conversionFactor: Float
+  numeratorUnitId: Int
+  numeratorUnitType: UnitOfMeasurementType
+  numeratorMultiplier: Float
+  denominatorUnitId: Int
+  denominatorUnitType: UnitOfMeasurementType
+  denominatorMultiplier: Float
+  colorIndex: Int
+  lastUpdatedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  derivedUnits: [UnitOfMeasurement]
+  baseUnit: UnitOfMeasurement
+  numeratorUnit: UnitOfMeasurement
+  denominatorUnit: UnitOfMeasurement
+}
+
+type PaymentTerm {
+  id: Int
+  paymentTerm: String!
+  dueDays: Int!
+  discountPercent: Float
+  discountDays: Int
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}

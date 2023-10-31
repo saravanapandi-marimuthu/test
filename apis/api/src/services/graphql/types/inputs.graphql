@@ -1,0 +1,52 @@
+input FilterInput {
+  filterField: String
+  filterValues: [String]
+}
+
+input TagFilterInput {
+  tagCategoryName: String
+  tagName: String
+}
+
+input TagInput {
+  tagCategoryName: String!
+  tagName: String!
+  color: String
+  icon: String
+  description: String
+}
+
+input TagLinkInput {
+  tagCategoryName: String!
+  tagName: String!
+}
+
+input CreateRetailerProductInput {
+  retailerCompanyId: String!
+  productName: String!
+  productSku: String!
+  label: String
+  notes: String
+  components: [RetailerProductComponentInput]
+  tags: [TagInput]
+}
+
+input UpdateRetailerProductInput {
+  retailerCompanyId: String!
+  productName: String!
+  productSku: String!
+  label: String
+  notes: String
+  componentsAdded: [RetailerProductComponentInput]
+  componentsRemoved: [RetailerProductComponentInput]
+  componentsUpdated: [RetailerProductComponentInput]
+  tagsAdded: [TagInput]
+  tagsRemoved: [TagInput]
+}
+
+input RetailerProductComponentInput {
+  productId: Int!
+  unitOfMeasurementId: Int!
+  measurementValue: Float!
+  unitPrice: Float!
+}

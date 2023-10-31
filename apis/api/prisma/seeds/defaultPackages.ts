@@ -1,0 +1,37 @@
+const defaultPackages = [
+  {
+    name: 'Base',
+    unitOfMeasurement: 'gal',
+    quantity: 1,
+    quantityInBaseUnit: 1,
+    packageType: 'Base',
+    colorIndex: 0,
+  },
+  {
+    name: '2.5 Case',
+    basePackage: 'Base',
+    unitOfMeasurement: 'gal',
+    quantity: 2.5,
+    quantityInBaseUnit: 2.5,
+    packageType: 'Case',
+    colorIndex: 1,
+  },
+  {
+    name: '2x2.5 Case',
+    basePackage: '1x1 Case',
+    unitOfMeasurement: 'gal',
+    quantity: 2,
+    quantityInBaseUnit: 5,
+    packageType: 'Case',
+    colorIndex: 2,
+  },
+  {
+    name: 'Tote',
+    basePackage: '2x2.5 Case',
+    unitOfMeasurement: 'gal',
+    quantity: 36,
+    quantityInBaseUnit: 180,
+    packageType: 'Tote',
+    colorIndex: 3,
+  },
+]

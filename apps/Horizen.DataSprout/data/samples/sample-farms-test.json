@@ -1,0 +1,366 @@
+[
+  {
+    "companyName": "Sunrise Farm",
+    "extendedProperties": {
+      "landArea": "150 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "1100 Golden Rd",
+        "addressLine2": null,
+        "city": "Harmony",
+        "country": "USA",
+        "postalCode": "54001",
+        "state": "Wisconsin"
+      }
+    },
+    "contactPerson": {
+      "email": "info@sunrisefarm.com",
+      "firstName": "Carol",
+      "lastName": "Brown",
+      "middleName": "M"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005554321"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Corn"
+      },
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Soybeans"
+      }
+    ]
+  },
+  {
+    "companyName": "Green Valley Farms",
+    "extendedProperties": {
+      "landArea": "300 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "987 Meadow Dr",
+        "addressLine2": null,
+        "city": "Clearwater",
+        "country": "USA",
+        "postalCode": "33761",
+        "state": "Florida"
+      }
+    },
+    "contactPerson": {
+      "email": "info@greenvalleyfarms.com",
+      "firstName": "Thomas",
+      "lastName": "Green",
+      "middleName": "J"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005558888"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Cotton"
+      },
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Peanuts"
+      }
+    ]
+  },
+  {
+    "companyName": "Blue Lake Farm",
+    "extendedProperties": {
+      "landArea": "100 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "654 Lake St",
+        "addressLine2": null,
+        "city": "Lakeview",
+        "country": "USA",
+        "postalCode": "48850",
+        "state": "Michigan"
+      }
+    },
+    "contactPerson": {
+      "email": "info@bluelakefarm.com",
+      "firstName": "Emily",
+      "lastName": "Lake",
+      "middleName": "S"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005553333"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Barley"
+      },
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Hay"
+      }
+    ]
+  },
+  {
+    "companyName": "Sunny Acres",
+    "extendedProperties": {
+      "landArea": "250 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "432 Sunflower Lane",
+        "addressLine2": null,
+        "city": "Sunnydale",
+        "country": "USA",
+        "postalCode": "94085",
+        "state": "California"
+      }
+    },
+    "contactPerson": {
+      "email": "info@sunnyacres.com",
+      "firstName": "David",
+      "lastName": "Miller",
+      "middleName": "L"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005559999"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Wheat"
+      }
+    ]
+  },
+  {
+    "companyName": "Mountain View Orchards",
+    "extendedProperties": {
+      "landArea": "50 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "321 Hillside Drive",
+        "addressLine2": null,
+        "city": "Hillsboro",
+        "country": "USA",
+        "postalCode": "97123",
+        "state": "Oregon"
+      }
+    },
+    "contactPerson": {
+      "email": "info@mtvieworchards.com",
+      "firstName": "Alice",
+      "lastName": "Williams",
+      "middleName": "K"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005557777"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Sorghum"
+      },
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Oats"
+      }
+    ]
+  },
+  {
+    "companyName": "Prairie Fields",
+    "extendedProperties": {
+      "landArea": "400 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "789 Prairie Lane",
+        "addressLine2": null,
+        "city": "Plainsville",
+        "country": "USA",
+        "postalCode": "67502",
+        "state": "Kansas"
+      }
+    },
+    "contactPerson": {
+      "email": "info@prairiefields.com",
+      "firstName": "Robert",
+      "lastName": "Johnson",
+      "middleName": "A"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005556666"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Rice"
+      }
+    ]
+  },
+  {
+    "companyName": "Forest Grove Farm",
+    "extendedProperties": {
+      "landArea": "200 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "654 Pine Road",
+        "addressLine2": null,
+        "city": "Forestville",
+        "country": "USA",
+        "postalCode": "95436",
+        "state": "California"
+      }
+    },
+    "contactPerson": {
+      "email": "info@forestgrovefarm.com",
+      "firstName": "Laura",
+      "lastName": "Clark",
+      "middleName": "N"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005552222"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Corn"
+      },
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Wheat"
+      }
+    ]
+  },
+  {
+    "companyName": "Happy Acres",
+    "extendedProperties": {
+      "landArea": "175 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "123 Farm Lane",
+        "addressLine2": null,
+        "city": "Farmville",
+        "country": "USA",
+        "postalCode": "23901",
+        "state": "Virginia"
+      }
+    },
+    "contactPerson": {
+      "email": "info@happyacres.com",
+      "firstName": "Brian",
+      "lastName": "Smith",
+      "middleName": "G"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005551111"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Soybeans"
+      }
+    ]
+  },
+  {
+    "companyName": "Willow Creek Farm",
+    "extendedProperties": {
+      "landArea": "225 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "258 Willow St",
+        "addressLine2": null,
+        "city": "Creekview",
+        "country": "USA",
+        "postalCode": "68818",
+        "state": "Nebraska"
+      }
+    },
+    "contactPerson": {
+      "email": "info@willowcreekfarm.com",
+      "firstName": "Samantha",
+      "lastName": "Jones",
+      "middleName": "P"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005554444"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Hay"
+      },
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Oats"
+      }
+    ]
+  },
+  {
+    "companyName": "Cedar Hill Farms",
+    "extendedProperties": {
+      "landArea": "275 acres"
+    },
+    "address": {
+      "addressType": "Billing",
+      "address": {
+        "addressLine1": "876 Cedar Ave",
+        "addressLine2": null,
+        "city": "Hilltop",
+        "country": "USA",
+        "postalCode": "37075",
+        "state": "Tennessee"
+      }
+    },
+    "contactPerson": {
+      "email": "info@cedarhillfarms.com",
+      "firstName": "Michael",
+      "lastName": "Davis",
+      "middleName": "R"
+    },
+    "phoneNumber": {
+      "phoneNumberType": "Work",
+      "phoneNumber": "+18005550000"
+    },
+    "providerCompanyId": "FM12345",
+    "tags": [
+      {
+        "tagCategoryName": "Crop",
+        "tagName": "Peanuts"
+      }
+    ]
+  }
+]

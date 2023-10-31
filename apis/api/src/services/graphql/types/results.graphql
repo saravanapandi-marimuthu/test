@@ -1,0 +1,52 @@
+type GetCustomersResult {
+  customers: [Customer!]!
+  totalCount: Int!
+}
+
+type SendInvitesResult {
+  success: Boolean!
+  failedEmails: [String!]
+}
+
+type CreateCustomerResult {
+  success: Boolean!
+  customerCompanyId: String
+}
+
+type GetCustomerResult {
+  customer: Customer
+}
+
+type GetManufacturersResult {
+  manufacturers: [Manufacturer]
+  totalCount: Int!
+}
+
+type GetManufacturerProductsResult {
+  products: [Product]
+  totalCount: Int!
+}
+
+type GetPaymentTermsResult {
+  paymentTerms: [PaymentTerm]
+  totalCount: Int!
+}
+
+type GetRetailerProductsResult {
+  products: [RetailerProduct!]!
+  totalCount: Int!
+}
+
+type CreateRetailerProductResult {
+  success: Boolean!
+  retailerProductId: Int
+}
+
+type GetRetailerProductResult {
+  product: RetailerProduct
+}
+
+type UpdateRetailerProductResult {
+  success: Boolean!
+  retailerProductId: Int
+}

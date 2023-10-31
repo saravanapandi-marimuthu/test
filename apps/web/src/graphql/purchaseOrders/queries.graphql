@@ -1,0 +1,29 @@
+query PurchaseOrders($input: GetPurchaseOrdersInput!) {
+  purchaseOrders(input: $input) {
+    items {
+      id
+      orderStatus
+      orderNumber
+      dateOrdered
+      vendorCompanyId
+      vendorCompany {
+        id
+        name
+      }
+      totalPrice
+      trackingNumber
+      paymentTermsId
+      paymentTerm {
+        id
+        termName
+      }
+      notes
+      billingAccountId
+      billingAccount {
+        id
+        accountName
+      }
+    }
+    totalCount
+  }
+}

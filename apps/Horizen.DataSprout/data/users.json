@@ -1,0 +1,44 @@
+[
+  {
+    "firstName": "Sam",
+    "lastName": "Herro",
+    "displayName": "Sam Herro",
+    "email": "sam@horizen.ag",
+    "externalUserId": "a14a102b-f7ce-406a-9808-cf951afc75a8"
+  },
+  {
+    "firstName": "Kalyan",
+    "lastName": "Ganesan",
+    "displayName": "Kalyan Ganesan",
+    "email": "kalyan@horizen.ag",
+    "externalUserId": "4f30c3b9-cdfb-4cd0-89e8-042b14d7da3f"
+  },
+  {
+    "firstName": "Seth",
+    "lastName": "Hall",
+    "displayName": "Seth Hall",
+    "email": "swhall14@gmail.com",
+    "externalUserId": "95888e3e-0696-456f-9d8e-50315fc95aa5"
+  },
+  {
+    "firstName": "Balaji",
+    "lastName": "Somasundaram",
+    "displayName": "Balaji Somasundaram",
+    "email": "ext.balaji.somasundaram@horizen.ag",
+    "externalUserId": "9039a00e-7273-4847-9aa2-a50a8f5f7fd6"
+  },
+  {
+    "firstName": "Satvik",
+    "lastName": "Vivek",
+    "displayName": "Satvik Vivek",
+    "email": "ext.satvik.vivek@horizen.ag",
+    "externalUserId": "a490fa4c-13fe-4e8d-aa61-b4626dad3dd5"
+  },
+  {
+    "firstName": "Jonas",
+    "lastName": "Studer",
+    "displayName": "Jonas Studer",
+    "email": "jonas@forsitesolutions.llc",
+    "externalUserId": "684fc23a-40b8-4f2e-b403-b1d61861ba26"
+  }
+]

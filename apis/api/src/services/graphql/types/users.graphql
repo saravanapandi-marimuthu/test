@@ -1,0 +1,209 @@
+# Types
+scalar DateTime
+scalar JSON
+
+type User {
+  id: String!
+  externalId: String
+  displayName: String
+  email: String!
+  firstName: String
+  middleName: String
+  lastName: String
+  userRoles: [UserRole]
+  settings: UserSettings
+  addresses: [UserAddress]
+  phoneNumbers: [UserPhoneNumber]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  roleCount: Int!
+}
+
+type UserSettings {
+  userId: String!
+  avatarUrl: String
+  selectedUserRoleId: String
+  avatarFallbackImage: String
+  darkMode: String
+  additionalSettings: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  selectedUserRole: UserRole
+}
+
+type UserAddress {
+  userId: String!
+  addressId: Int!
+  addressType: AddressType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  address: Address
+}
+
+type UserPhoneNumber {
+  userId: String!
+  phoneNumberType: PhoneNumberType!
+  phoneNumber: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UserRole {
+  id: String!
+  userId: String!
+  roleId: Int!
+  companyId: String!
+  extendedProperties: JSON
+  user: User
+  role: Role
+  company: Company
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Role {
+  id: Int!
+  roleName: String!
+  description: String
+  permissions: [RolePermission!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RolePermission {
+  roleId: Int!
+  permissionName: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# Inputs
+input CreateUserInput {
+  externalId: String!
+  username: String!
+  email: String!
+}
+
+input RegisterUserInput {
+  companyName: String!
+  parentCompanyId: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+  avatarUrl: String
+  darkMode: Boolean
+}
+
+input InviteUsersInput {
+  emails: [String!]!
+  companyId: String!
+  roleId: Int!
+}
+
+input UserInput {
+  username: String
+  firstName: String
+  middleName: String
+  lastName: String
+}
+
+input UserAddressInput {
+  addressId: Int
+  addressType: String!
+  address: AddressDetailsInput
+}
+
+input UserPhoneNumberInput {
+  phoneNumberId: Int
+  phoneNumberType: String!
+  phoneNumber: String
+}
+
+input UserSettingsInput {
+  avatarUrl: String
+  avatarFallbackImage: String
+  darkMode: Boolean
+  selectedUserRoleId: String
+  additionalSettings: String
+}
+
+input AvatarData {
+  avatarData: String
+}
+
+input UserRoleInput {
+  companyId: String!
+  roleId: Int!
+  userId: String!
+  extendedProperties: JSON
+  acl: String
+}
+
+# Results
+type GetUsersResult {
+  users: [User!]!
+  totalCount: Int!
+}
+
+type AddOrUpdateUserRoleResult {
+  userRole: UserRole!
+}
+
+type DeleteUserRoleResult {
+  userRole: UserRole!
+}
+
+# Queries
+extend type Query {
+  getUserByExternalId(externalId: String!): User
+
+  getUserByUserId(userId: String!): User
+
+  getUserOrCreate: User
+
+  getUsers(
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+    filters: [FilterInput]
+  ): GetUsersResult!
+
+  getUsersWithRolesInCompany(
+    companyId: String!
+    page: Int
+    perPage: Int
+    searchTerm: String
+    sort: String
+    filters: [FilterInput]
+  ): GetUsersResult!
+}
+
+# Mutations
+extend type Mutation {
+  createUser(input: CreateUserInput!): User!
+
+  registerUserWithCompany(input: RegisterUserInput): User!
+
+  addRole(name: String, description: String): Role!
+
+  inviteUsers(input: InviteUsersInput): SendInvitesResult!
+
+  updateUserProfile(
+    user: UserInput
+    userAddress: UserAddressInput
+    userPhoneNumber: UserPhoneNumberInput
+    userSettings: UserSettingsInput
+    avatarData: AvatarData
+  ): User
+
+  addUserRole(input: UserRoleInput): AddOrUpdateUserRoleResult!
+
+  updateUserRole(input: UserRoleInput): AddOrUpdateUserRoleResult!
+
+  deleteUserRole(input: UserRoleInput): DeleteUserRoleResult!
+}

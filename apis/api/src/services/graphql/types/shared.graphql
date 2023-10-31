@@ -1,0 +1,83 @@
+# Types
+enum AddressType {
+  HOME
+  BUSINESS
+  BILLING
+  SHIPPING
+  PHYSICAL
+  MAILING
+  SERVICE
+  RECIPIENT
+  LEGAL
+  OTHER
+}
+
+enum PhoneNumberType {
+  MOBILE
+  WORK
+  HOME
+  OTHER
+}
+
+type Address {
+  id: Int!
+  addressLine1: String
+  addressLine2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type TagCategory {
+  id: Int
+  tagCategoryName: String!
+  description: String
+  tags: [Tag]
+}
+
+type Tag {
+  id: Int
+  tagName: String!
+  description: String
+  tagCategoryId: Int
+  tagCategory: TagCategory
+}
+
+type GeoLocation {
+  id: Int
+  latitude: Float!
+  longitude: Float!
+}
+
+type GeoLocation {
+  id: Int!
+  latitude: Float!
+  longitude: Float!
+  altitude: Float
+  accuracy: Float
+  source: String
+  notes: String
+}
+
+# Inputs
+input PhoneNumberInput {
+  phoneNumberType: PhoneNumberType!
+  phoneNumber: String
+}
+
+input AddressDetailsInput {
+  addressLine1: String
+  addressLine2: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+}
+
+input AddressInput {
+  addressType: AddressType!
+  address: AddressDetailsInput
+}
